@@ -7,6 +7,7 @@ class ShoppingList {
     public:
         void addItem();
         void removeItem();
+        void viewCurrentList();
         ShoppingList();
         ~ShoppingList();
         std::vector<ItemNode*> getList();

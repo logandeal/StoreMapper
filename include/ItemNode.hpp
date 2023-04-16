@@ -13,6 +13,7 @@ class ItemNode {
         std::string itemName;
         float price;
         bool validCoupon;
+        int Quantity;
         //can add more attributes for each item here
 };
 
