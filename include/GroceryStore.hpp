@@ -1,3 +1,6 @@
+#ifndef GROCERYSTORE_GUARD
+#define GROCERYSTORE_GUARD
+
 #include <iostream>
 #include <map>
 #include <vector>
@@ -29,3 +32,5 @@ class GroceryStore {
         std::map<std::string, std::vector<Edge>> adjacencyList;
         GroceryStore(){}; 
 };
+
+#endif
