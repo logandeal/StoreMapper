@@ -24,6 +24,7 @@ class GroceryStore {
         void addNode(std::string newnode);
         void deleteNode(std::string out);
         void deleteEdge(std::string out, Edge edgeout);
+        void printMap();
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
         GroceryStore(){}; 
