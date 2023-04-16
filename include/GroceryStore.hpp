@@ -1,6 +1,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <algorithm>
+
 
 struct Edge {
     float weight;
@@ -18,10 +20,10 @@ class GroceryStore {
         GroceryStore(GroceryStore &&) = delete; // move constructor
         GroceryStore& operator = (GroceryStore &&) = delete; // move assignment
         ~GroceryStore();
-        void addEdge();
-        void addNode();
-        void deleteNode();
-        void deleteEdge();
+        void addEdge(std::string in, Edge newedge);
+        void addNode(std::string newnode);
+        void deleteNode(std::string out);
+        void deleteEdge(std::string out, Edge edgeout);
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
         GroceryStore(){}; 
