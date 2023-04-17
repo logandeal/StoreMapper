@@ -17,9 +17,10 @@ void GroceryStore::addNode(std::string newnode){
 void GroceryStore::deleteNode(std::string out){
     adjacencyList.erase(out);
 }
-void GroceryStore::deleteEdge(std::string out, Edge edgeout){
-    adjacencyList.at(out).erase(std::remove(adjacencyList.at(out).begin(), adjacencyList.at(out).end(), edgeout));
-}
+
+// void GroceryStore::deleteEdge(std::string out, Edge edgeout){
+//     adjacencyList.at(out).erase(std::remove(adjacencyList.at(out).begin(), adjacencyList.at(out).end(), edgeout));
+// }
 
 void GroceryStore::printMap(){
     for(auto it = adjacencyList.cbegin(); it != adjacencyList.cend(); ++it)
@@ -28,9 +29,13 @@ void GroceryStore::printMap(){
         for(auto p : it->second){
             std::cout << "  [";
             std::cout << p.name << ", ";
-            std::cout << p.weight << ", ";
-            std::cout << "]";
+            std::cout << p.weight << "]";
         }
         std::cout << "\n";
     }
+}
+
+
+GroceryStore::~GroceryStore(){
+
 }
