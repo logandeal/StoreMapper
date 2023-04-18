@@ -1,9 +1,9 @@
 #include "../include/Context.hpp"
 
-void Context::setStrategy(Strategy* strat_)  { 
+void Context::setStrategy(SearchStrategy* strat_)  { 
     strat = strat_;
 }
 
-void Context::strategy(std::vector<ItemNode> &ShoppingList) {
-    if (strat) strat->search(ShoppingList); 
+void Context::strategy(ShoppingList &shoppingList) {
+    if (strat) strat->search(shoppingList); 
 }     

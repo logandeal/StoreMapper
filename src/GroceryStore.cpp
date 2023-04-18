@@ -34,3 +34,7 @@ void GroceryStore::printMap(){
         std::cout << "\n";
     }
 }
+
+std::map<std::string, std::vector<Edge>> GroceryStore::getMap(){
+    return adjacencyList;
+};
