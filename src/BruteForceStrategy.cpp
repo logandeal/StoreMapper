@@ -1,7 +1,8 @@
 #include "../include/BruteForceStrategy.hpp"
 
-BruteForceStrategy::search(std::vector<ItemNode> &ShoppingList, GroceryStore &Store) {
-    const int n = ShoppingList.size(); // Number of items
+void BruteForceStrategy::search(std::vector<ItemNode> &ShoppingList, GroceryStore &Store) {
+    // Number of items
+    const int n = ShoppingList.size();
 
     std::map<std::string, std::vector<Edge>> adjList = Store->getInstance();
 
