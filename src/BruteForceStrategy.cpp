@@ -27,7 +27,7 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
             // find the edge weight between the current and next item
             int w = 0;
             for (Edge neighbor : adjList[name_u]) {
-                if (neighbor.destination == name_v) {
+                if (neighbor.name == name_v) {
                     w = neighbor.weight;
                     break;
                 }
@@ -38,7 +38,7 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
         // Find the edge weight between the last and first cities
         int w = 0;
         for (Edge neighbor : adjList[name_u]) {
-            if (neighbor.destination == name_v) {
+            if (neighbor.name == name_v) {
                 w = neighbor.weight;
                 break;
             }
