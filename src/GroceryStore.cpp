@@ -19,7 +19,8 @@ void GroceryStore::deleteNode(std::string out){
 }
 
 void GroceryStore::deleteEdge(std::string out, Edge edgeout){
-    adjacencyList.at(out).erase(std::remove(adjacencyList.at(out).begin(), adjacencyList.at(out).end(), edgeout));
+    std::vector<Edge> e = adjacencyList.at(out);
+    e.erase(std::remove(e.begin(), e.end(), edgeout), e.end());
 }
 
 void GroceryStore::printMap(){
