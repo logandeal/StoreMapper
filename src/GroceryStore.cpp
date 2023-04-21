@@ -16,9 +16,21 @@ void GroceryStore::addNode(std::string newnode){
 }
 void GroceryStore::deleteNode(std::string out){
     adjacencyList.erase(out);
+    int i = 0;
+    for(auto& it : adjacencyList){
+        auto &vec = it.second;
+        auto junk = std::remove_if(vec.begin(), vec.end(), [&](Edge const &e){
+            return e.name == out;
+        });
+        vec.erase(junk, vec.end());
+    }
 }
+
 void GroceryStore::deleteEdge(std::string out, Edge edgeout){
-    adjacencyList.at(out).erase(std::remove(adjacencyList.at(out).begin(), adjacencyList.at(out).end(), edgeout));
+    adjacencyList.at(out).erase(std::remove(adjacencyList.at(out).begin(), adjacencyList.at(out).end(), edgeout), adjacencyList.at(out).end());
+    std::string name2 = edgeout.name;
+    edgeout.name = out;
+    adjacencyList.at(name2).erase(std::remove(adjacencyList.at(name2).begin(), adjacencyList.at(name2).end(), edgeout), adjacencyList.at(name2).end());
 }
 
 void GroceryStore::printMap(){
@@ -28,13 +40,16 @@ void GroceryStore::printMap(){
         for(auto p : it->second){
             std::cout << "  [";
             std::cout << p.name << ", ";
-            std::cout << p.weight << ", ";
-            std::cout << "]";
+            std::cout << p.weight << "]";
         }
         std::cout << "\n";
     }
 }
 
+
+GroceryStore::~GroceryStore(){
+
+}
 std::map<std::string, std::vector<Edge>> GroceryStore::getMap(){
     return adjacencyList;
 };

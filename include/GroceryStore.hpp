@@ -10,6 +10,10 @@
 struct Edge {
     float weight;
     std::string name;
+
+    bool operator==(const Edge a) const {
+        return (a.weight == weight && a.name == name);
+    }
 };
 
 class GroceryStore {
