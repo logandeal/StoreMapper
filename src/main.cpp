@@ -1,35 +1,49 @@
 #include "../include/GroceryStore.hpp"
+#include "../include/ShoppingList.hpp"
 
-int main(void) {
-    Edge e;
-    e.name = "Eggs";
-    e.weight = 2;
-    GroceryStore::getInstance().addNode("Milk");
-    GroceryStore::getInstance().addNode("Eggs");
-    GroceryStore::getInstance().addNode("Cookies");
-    GroceryStore::getInstance().addNode("Sauce");
+void menuOptions(int option, ShoppingList* list) {
+    switch(option) {
+        case 1:
+            list->addItem();
+            break;
+        case 2:
+            list->removeItem();
+            break;
+        case 3:
+            list->viewCurrentList();
+            break;
+        case 4:
+            //ADD SEARCH ALGORITHMS HERE
+            break;
+        case 5:
+            std::cout << "Thank you for using StoreMapper!" << std::endl;
+            break;
+        default:
+            throw std::invalid_argument("Invalid Selection! Please try again.");
+            break;
+    }
+}
 
-    GroceryStore::getInstance().addEdge("Milk", e);
-    e.name = "Sauce";
-    e.weight = 10;
-    GroceryStore::getInstance().addEdge("Eggs", e);
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("Milk", e);
-    e.weight = 3;
-    e.name = "Cookies";
-    GroceryStore::getInstance().addEdge("Sauce", e);
-    e.weight = 200;
-    e.name = "Milk";
-    GroceryStore::getInstance().addEdge("Cookies", e);
 
+int main(int argv, char** argc) {
+    //will need to initalize a grocery store instance here (singleton)
+    ShoppingList* list = new ShoppingList();
 
-    GroceryStore::getInstance().printMap();
-    std::cout << std::endl;
+    std::cout << "Welcome to StoreMapper!" << std::endl;
 
-    GroceryStore::getInstance().deleteNode("Sauce");
-    GroceryStore::getInstance().printMap();
+    int option = 0;
+    while(option != 5) {
+        std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Exit" << std::endl;
+        try
+        {
+            std::cin >> option;
+            menuOptions(option,list);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
 
-    std::cout << std::endl;
-    GroceryStore::getInstance().deleteEdge("Cookies", e);
-    GroceryStore::getInstance().printMap();
+    }
+    delete list;
 }

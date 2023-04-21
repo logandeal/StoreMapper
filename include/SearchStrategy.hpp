@@ -10,10 +10,11 @@
 
 #include "ItemNode.hpp"
 #include "GroceryStore.hpp"
+#include "ShoppingList.hpp"
 
 class SearchStrategy {
 public:
-    virtual void search(std::vector<ItemNode> &ShoppingList, GroceryStore &Store) = 0;   
+    virtual void search(ShoppingList &shoppingList) = 0;   
     virtual ~SearchStrategy() {};
 };
 

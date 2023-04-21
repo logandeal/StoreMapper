@@ -50,3 +50,6 @@ void GroceryStore::printMap(){
 GroceryStore::~GroceryStore(){
 
 }
+std::map<std::string, std::vector<Edge>> GroceryStore::getMap(){
+    return adjacencyList;
+};

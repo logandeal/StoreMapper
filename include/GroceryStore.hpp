@@ -1,3 +1,6 @@
+#ifndef GROCERYSTORE_GUARD
+#define GROCERYSTORE_GUARD
+
 #include <iostream>
 #include <map>
 #include <vector>
@@ -29,7 +32,10 @@ class GroceryStore {
         void deleteNode(std::string out);
         void deleteEdge(std::string out, Edge edgeout);
         void printMap();
+        std::map<std::string, std::vector<Edge>> getMap();
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
         GroceryStore(){}; 
 };
+
+#endif
