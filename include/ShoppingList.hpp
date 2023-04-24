@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "ItemNode.hpp"
+#include <string>
 class ShoppingList {
     public:
         void addItem();
