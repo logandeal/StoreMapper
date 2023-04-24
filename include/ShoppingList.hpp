@@ -4,6 +4,7 @@
 #include <vector>
 #include "ItemNode.hpp"
 #include <string>
+#include "GroceryStore.hpp"
 class ShoppingList {
     public:
         void addItem();

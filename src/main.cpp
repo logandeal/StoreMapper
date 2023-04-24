@@ -28,7 +28,7 @@ void menuOptions(int option, ShoppingList* list) {
 int main(int argv, char** argc) {
     //will need to initalize a grocery store instance here (singleton)
     ShoppingList* list = new ShoppingList();
-
+    GroceryStore &store = GroceryStore::getInstance();
     std::cout << "Welcome to StoreMapper!" << std::endl;
 
     char option = '0';

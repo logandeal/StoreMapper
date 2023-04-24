@@ -4,6 +4,8 @@ ShoppingList::ShoppingList() {
     possiblechoices.push_back(new ItemNode("Soda",10,false));
     possiblechoices.push_back(new ItemNode("Cheese",3.4,false));
     possiblechoices.push_back(new ItemNode("Milk",3.99,true));
+    GroceryStore &store = GroceryStore::getInstance();
+    
 }
 
 ShoppingList::~ShoppingList() {
