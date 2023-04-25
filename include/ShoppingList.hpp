@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "ItemNode.hpp"
+#include <string>
+#include "GroceryStore.hpp"
 class ShoppingList {
     public:
         void addItem();
@@ -15,5 +17,5 @@ class ShoppingList {
         std::vector<ItemNode*> list;
         std::vector<ItemNode*> possiblechoices;
 };
-
+bool hasCharacters(std::string);
 #endif

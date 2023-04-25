@@ -16,6 +16,7 @@ void GroceryStore::addNode(std::string newnode){
 }
 void GroceryStore::deleteNode(std::string out){
     adjacencyList.erase(out);
+    int i = 0;
     for(auto& it : adjacencyList){
         auto &vec = it.second;
         auto junk = std::remove_if(vec.begin(), vec.end(), [&](Edge const &e){
