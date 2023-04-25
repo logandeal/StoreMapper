@@ -17,5 +17,5 @@ class ShoppingList {
         std::vector<ItemNode*> list;
         std::vector<ItemNode*> possiblechoices;
 };
-
+bool hasCharacters(std::string);
 #endif

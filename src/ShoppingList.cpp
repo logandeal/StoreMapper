@@ -1,5 +1,5 @@
 #include "../include/ShoppingList.hpp"
-
+//TODO: switch to strings, and actually parse input correctly for given integers
 ShoppingList::ShoppingList() {
     possiblechoices.push_back(new ItemNode("Soda",10,false));
     possiblechoices.push_back(new ItemNode("Cheese",3.4,false));
@@ -97,22 +97,21 @@ void ShoppingList::addItem() {
     for(int i = 0; i < (int) this->possiblechoices.size();i++) {
         std::cout << i << ") " << possiblechoices[i]->getName() << " : $" << possiblechoices[i]->getPrice() << std::endl;
     }
-    char input = '0';
+    std::string input = "-1";
     try
     {
         std::cin >> input;
-        if(std::atoi(&input) < 0 || std::atoi(&input) >= (int) this->possiblechoices.size()) {
+        if(hasCharacters(input)) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
-        else if(!isdigit(input)) {
+        if(std::stoi(input) < 0 || std::stoi(input) >= (int) this->possiblechoices.size()) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
     }
     catch(const std::invalid_argument& e) {
         std::cerr << e.what() << "\n";
         std::cin.clear();
-        std::cin.ignore(input, '\n');
-        input = -1;
+        input = "-1";
         return;
     }
     catch(const std::exception& e)
@@ -120,8 +119,8 @@ void ShoppingList::addItem() {
         std::cerr << e.what() << '\n';
         return;
     }
-    this->list.push_back(this->possiblechoices[std::atoi(&input)]);
-    this->possiblechoices.erase(possiblechoices.begin() + std::atoi(&input));
+    this->list.push_back(this->possiblechoices[std::stoi(input)]);
+    this->possiblechoices.erase(possiblechoices.begin() + std::stoi(input));
 }
 
 void ShoppingList::removeItem() {
@@ -133,21 +132,20 @@ void ShoppingList::removeItem() {
         std::cout << i << ") " << list[i]->getName() << " : $" << list[i]->getPrice() << std::endl;
     }
 
-    char input = '0';
+    std::string input = "-1";
     try
     {
         std::cin >> input;
-        if(std::atoi(&input) < 0 || std::atoi(&input) >= (int)this->list.size()) {
+        if(hasCharacters(input)) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
-        else if(!isdigit(input)) {
+        if(std::stoi(input) < 0 || std::stoi(input) >= (int)this->list.size()) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
     }
     catch(const std::invalid_argument& e) {
         std::cerr << e.what() << "\n";
         std::cin.clear();
-        std::cin.ignore(input, '\n');
         return;
     }
     catch(const std::exception& e)
@@ -155,8 +153,8 @@ void ShoppingList::removeItem() {
         std::cerr << e.what() << '\n';
         return;
     }
-    this->possiblechoices.push_back(this->list[std::atoi(&input)]);
-    list.erase(list.begin() + std::atoi(&input));
+    this->possiblechoices.push_back(this->list[std::stoi(input)]);
+    list.erase(list.begin() + std::stoi(input));
     
 }
 
@@ -164,4 +162,13 @@ void ShoppingList::viewCurrentList() {
     for(ItemNode* n : list) {
         std::cout << n->getName() << "  : " << n->getPrice() << std::endl;
     }
+}
+
+bool hasCharacters(std::string s) {
+    for(auto &character : s) {
+        if(!std::isdigit(character)) {
+            return true;
+        }
+    }
+    return false;
 }
