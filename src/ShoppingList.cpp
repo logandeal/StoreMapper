@@ -1,5 +1,4 @@
 #include "../include/ShoppingList.hpp"
-//TODO: switch to strings, and actually parse input correctly for given integers
 ShoppingList::ShoppingList() {
     possiblechoices.push_back(new ItemNode("Soda",10,false));
     possiblechoices.push_back(new ItemNode("Cheese",3.4,false));
