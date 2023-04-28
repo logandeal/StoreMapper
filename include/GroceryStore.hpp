@@ -11,11 +11,12 @@ struct Edge {
     float weight;
     std::string name;
 
-    bool operator==(const Edge a) const {
+    bool operator==(const Edge a) const { //overwriting == so that it can compare two edges together
         return (a.weight == weight && a.name == name);
     }
 };
 
+//Singleton design pattern, only one instance of GroceryStore can exist at a time
 class GroceryStore {
     public: 
         static GroceryStore& getInstance(){
@@ -35,6 +36,9 @@ class GroceryStore {
         std::map<std::string, std::vector<Edge>> getMap();
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
+        /*this adjacency list is a map, where it takes in the name of the node and the edge connected to it. It basically works
+        as a directed graph, where each edge only points to the node it is connecting to. As our grocery store does not have one
+        way aisles, we will need to basically add the edges twice (an edge for each direction)*/
         GroceryStore(){}; 
 };
 
