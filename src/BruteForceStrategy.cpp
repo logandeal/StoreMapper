@@ -1,3 +1,5 @@
+// Good for small n
+
 #include "../include/BruteForceStrategy.hpp"
 
 void BruteForceStrategy::search(ShoppingList &shoppingList) {
@@ -20,7 +22,7 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
     do {
         // calculate the distance of the current permutation
         int curDist = 0;
-        // Loop through all the items in current permutation
+        // loop through all the items in current permutation
         for (int i = 1; i < n; i++) {
             // compare the current and next item
             std::string name_u = items[i-1], name_v = items[i];
@@ -29,13 +31,14 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
             for (Edge neighbor : adjList[name_u]) {
                 if (neighbor.name == name_v) {
                     w = neighbor.weight;
+                    // add to path
                     break;
                 }
             }
             curDist += w;
         }
         std::string name_u = items[n-1], name_v = items[0];
-        // Find the edge weight between the last and first cities
+        // find the edge weight between the last and first items
         int w = 0;
         for (Edge neighbor : adjList[name_u]) {
             if (neighbor.name == name_v) {
@@ -45,7 +48,10 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
         }
         curDist += w;
         ans = std::min(ans, curDist);
+        // if it's ans then get rid of the curDist nodes from 
     } while (next_permutation(items.begin(), items.end()));
+
+    // return std::vector<Edge> path in order;
 };
 
 BruteForceStrategy::~BruteForceStrategy() {};
