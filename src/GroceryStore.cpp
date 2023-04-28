@@ -55,3 +55,12 @@ GroceryStore::~GroceryStore(){
 std::map<std::string, std::vector<Edge>> GroceryStore::getMap(){
     return adjacencyList; //helper function that returns the adjacency list
 };
+
+void GroceryStore::printShortestPath(std::vector<Edge> shortest){
+    std::cout << "Entrance --> "; //Will always start at entrance
+    for(auto it = shortest.cbegin(); it != shortest.cend(); ++it){ //looping through the shortest path vector
+        std::cout << it->name << ", Distance: " << it->weight << std::endl; //printing out the name of which the edge is connected to, same with the distance
+        if(it != shortest.cend() - 1) //don't print out the next name if we are at the end
+            std::cout << it->name << " --> "; //print the next name
+    }
+}
