@@ -2,9 +2,12 @@
 
 #include "../include/BruteForceStrategy.hpp"
 
-void BruteForceStrategy::search(ShoppingList &shoppingList) {
+std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
     // get shopping list
     std::vector<ItemNode*> shopList = shoppingList.getList();
+
+    // path to return
+    std::vector<Edge> path;
 
     // number of items
     const int n = shoppingList.getList().size();
@@ -22,6 +25,8 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
     do {
         // calculate the distance of the current permutation
         int curDist = 0;
+        int edges_added = 0;
+        std::vector<Edge> currentPath;
         // loop through all the items in current permutation
         for (int i = 1; i < n; i++) {
             // compare the current and next item
@@ -31,9 +36,12 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
             for (Edge neighbor : adjList[name_u]) {
                 if (neighbor.name == name_v) {
                     w = neighbor.weight;
+                    // add edge to path
+                    currentPath.push_back(neighbor);
                     break;
                 }
             }
+            // add distance
             curDist += w;
         }
         // std::string name_u = items[n-1], name_v = items[0];
@@ -46,11 +54,15 @@ void BruteForceStrategy::search(ShoppingList &shoppingList) {
         //     }
         // }
         // curDist += w;
-        ans = std::min(ans, curDist);
-        // if it's ans then get rid of the curDist nodes from 
+        if (curDist < ans) {
+            path.clear();
+            path.insert(path.begin(), currentPath.begin(), currentPath.end());
+            ans = curDist;
+        }
+        // ans = std::min(ans, curDist);
     } while (next_permutation(items.begin(), items.end()));
 
-    // return std::vector<Edge> path in order;
+    return path;
 };
 
 BruteForceStrategy::~BruteForceStrategy() {};
