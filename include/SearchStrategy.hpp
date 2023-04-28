@@ -14,7 +14,7 @@
 
 class SearchStrategy {
 public:
-    virtual void search(ShoppingList &shoppingList) = 0;   
+    virtual std::vector<Edge> search(ShoppingList &shoppingList) = 0;   
     virtual ~SearchStrategy() {};
 };
 
