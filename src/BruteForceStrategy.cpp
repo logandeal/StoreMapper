@@ -25,7 +25,6 @@ std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
     do {
         // calculate the distance of the current permutation
         int curDist = 0;
-        int edges_added = 0;
         std::vector<Edge> currentPath;
         // loop through all the items in current permutation
         for (int i = 1; i < n; i++) {
