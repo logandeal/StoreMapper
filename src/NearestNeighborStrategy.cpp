@@ -1,2 +1,6 @@
-#include "../include/BruteForceStrategy.hpp"
+// Good for medium n
 
+#include "../include/NearestNeighborStrategy.hpp"
+
+
+NearestNeighborStrategy::~NearestNeighborStrategy() {};

@@ -5,7 +5,7 @@
 
 class NearestNeighborStrategy : public SearchStrategy {
 public:
-    virtual void search(ShoppingList &shoppingList) override;
+    virtual std::vector<Edge> search(ShoppingList &shoppingList) override;
     virtual ~NearestNeighborStrategy() override;
 };
 
