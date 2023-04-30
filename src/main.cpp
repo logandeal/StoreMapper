@@ -71,6 +71,8 @@ void menuOptions(int option, ShoppingList* list) {
                 } else {
                     std::vector<Edge> path = k.strategy(*list);
                     // print path!!!!
+                    GroceryStore::getInstance().printShortestPath(path);
+
                 }
             }
             catch(const std::invalid_argument &e) {
