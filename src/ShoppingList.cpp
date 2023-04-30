@@ -162,7 +162,7 @@ void ShoppingList::removeItem() {
 void ShoppingList::viewCurrentList() {
     for(ItemNode* n : list) {
         if(n->getPrice() != -1 || n->getPrice() != -1) {
-        std::cout << n->getName() << "  : " << n->getPrice() << std::endl;
+        std::cout << n->getName() << "  : $" <<n->getPrice() << std::endl;
         }
     }
 }

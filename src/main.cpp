@@ -105,6 +105,7 @@ int main(int argv, char** argc) {
     ShoppingList list;
     std::cout << "Welcome to StoreMapper!" << std::endl;
     char option = '0';
+    std::cout << std::fixed<< std::setprecision(2);
     //basic loop used to control program flow
     while(option != '5') {
         std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Exit" << std::endl;
@@ -119,6 +120,7 @@ int main(int argv, char** argc) {
         }
         catch(const std::invalid_argument &e) {
             std::cerr << e.what() << '\n';
+            //if we get an invalid argument, we need to flush cin to allow it to be used again
             std::cin.clear();
             std::cin.ignore(option, '\n');
         }
