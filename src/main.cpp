@@ -30,40 +30,45 @@ void menuOptions(int option, ShoppingList* list) {
                     throw std::invalid_argument("Please enter a valid argument!");
                 }
                 switch(search_option) {
-                    case '1': 
+                    case '1': {
                         newStrategy = new BruteForceStrategy();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
-                    case '2':
+                    }
+                    case '2': {
                         newStrategy = new NearestNeighborStrategy();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
-                    case '3':
+                    }
+                    case '3': {
                         newStrategy = new TwoOptStrategy();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
-                    case '4':
+                    }
+                    case '4': {
                         std::vector<ItemNode*> shopList = list->getList();
-                        if shopList.size() < 10:
-                            newStrategy = new BruteForceStrategy(list);
-                        else if shopList.size() < 20:
-                            newStrategy = new NearestNeighborStrategy(list);
-                        else:
-                            newStrategy = new TwoOptStrategy(list);
+                        if (shopList.size() < 10) {
+                            newStrategy = new BruteForceStrategy();
+                        } else if (shopList.size() < 20) {
+                            newStrategy = new NearestNeighborStrategy();
+                        } else {
+                            newStrategy = new TwoOptStrategy();
+                        }
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
-                    case '5':
+                    }
+                    case '5': {
                         cancel = true;
                         break;
+                    }
                 }
                 if (cancel) {
                     break;
-                }
-                else {
+                } else {
                     std::vector<Edge> path = k.strategy(*list);
                     // print path!!!!
                 }
@@ -77,7 +82,6 @@ void menuOptions(int option, ShoppingList* list) {
             {
                 std::cerr << e.what() << '\n';
             }
-            Context k;
             break;
         case '5':
             std::cout << "Thank you for using StoreMapper!" << std::endl;
