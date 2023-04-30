@@ -35,6 +35,7 @@ class GroceryStore {
         void printMap();
         void printShortestPath(std::vector<Edge> shortest);
         std::map<std::string, std::vector<Edge>> getMap();
+        void deleteMap();
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
         /*this adjacency list is a map, where it takes in the name of the node and the edge connected to it. It basically works
@@ -42,5 +43,7 @@ class GroceryStore {
         way aisles, we will need to basically add the edges twice (an edge for each direction)*/
         GroceryStore(){}; 
 };
+
+
 
 #endif

@@ -64,3 +64,8 @@ void GroceryStore::printShortestPath(std::vector<Edge> shortest){
             std::cout << it->name << " --> "; //print the next name
     }
 }
+
+
+void GroceryStore::deleteMap(){
+    adjacencyList.clear();
+}
