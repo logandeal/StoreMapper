@@ -6,9 +6,9 @@
 class GroceryStoreTest : public ::testing::Test {
     protected:
         void SetUp() override {
+            GroceryStore::getInstance().printMap();
         }
-        void TearDown() override {
-            
+        void TearDown() override {  
         }
 };
 

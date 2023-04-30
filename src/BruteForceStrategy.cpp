@@ -1,7 +1,6 @@
 // Good for small n
-
 #include "../include/BruteForceStrategy.hpp"
-
+#include <climits>
 std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
     // get shopping list
     std::vector<ItemNode*> shopList = shoppingList.getList();

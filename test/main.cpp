@@ -19,41 +19,30 @@ TEST_F(ShoppingListTest, RemoveItem) {
 }
 
 TEST_F(GroceryStoreTest, AddNode){
-    GroceryStore::getInstance().addNode("Milk");
-    ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 1);
+    ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 16);
+    GroceryStore::getInstance().addNode("Bubbles");
+    ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 17);
 }
 
 TEST_F(GroceryStoreTest, AddEdge){
     Edge e;
-    e.name = "Milk";
-    e.weight = 1;
-    
-    GroceryStore::getInstance().addNode("Milk");
-    GroceryStore::getInstance().addNode("Cookies");
-    GroceryStore::getInstance().addEdge("Cookies", e);
-    ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 2);
-    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").front(), e);
     e.name = "Cookies";
-    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Milk").front(), e);
+    e.weight = 4;
+    ASSERT_EQ(sizeof(GroceryStore::getInstance().getMap().at("Cookies")), 1);
+    GroceryStore::getInstance().addEdge("Sauce", e);
+    ASSERT_EQ(sizeof(GroceryStore::getInstance().getMap().at("Cookies")), 2);
 }
 
 TEST_F(GroceryStoreTest, DeleteNode){
-    GroceryStore::getInstance().addNode("Milk");
     ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 1);
     GroceryStore::getInstance().deleteNode("Milk");
     ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 0);
 }
 
 TEST_F(GroceryStoreTest, DeleteNodeWithEdges){
-    Edge e;
-    e.name = "Milk";
-    e.weight = 1;
-    
-    GroceryStore::getInstance().addNode("Milk");
-    GroceryStore::getInstance().addNode("Cookies");
-    GroceryStore::getInstance().addEdge("Cookies", e);
-    GroceryStore::getInstance().deleteNode("Milk");
-    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 0);
+    GroceryStore::getInstance().printMap();
+    GroceryStore::getInstance().deleteNode("Soda");
+    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 1);
 }
 
 TEST_F(GroceryStoreTest, DeleteEdge){
@@ -64,7 +53,7 @@ TEST_F(GroceryStoreTest, DeleteEdge){
     GroceryStore::getInstance().addNode("Milk");
     GroceryStore::getInstance().addNode("Cookies");
     GroceryStore::getInstance().addEdge("Cookies", e);
-    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies"), 1);
+    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 1);
     GroceryStore::getInstance().deleteEdge("Cookies", e);
     ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 0);
 }

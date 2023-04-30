@@ -1,7 +1,6 @@
 // Good for medium n
 
 #include "../include/NearestNeighborStrategy.hpp"
-
 // helper function to get the index of an item in the shopping list
 int NearestNeighborStrategy::getIndex(const std::vector<ItemNode*>& shopList, const std::string& name) {
     for (int i = 0; i < shopList.size(); i++) {
