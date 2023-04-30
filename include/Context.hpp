@@ -7,7 +7,7 @@ class Context {
     SearchStrategy* strat;                    
 public:                                                   
     void setStrategy(SearchStrategy* strat_);
-    void strategy(ShoppingList &shoppingList);
+    std::vector<Edge> strategy(ShoppingList &shoppingList);
 };
 
 #endif
