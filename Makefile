@@ -3,7 +3,7 @@ HEADERS := $(wildcard *.hpp)
 SOURCES := $(wildcard *.cpp)
 OBJS := $(SOURCES:%.cpp=%.o)
 
-TARGET := main
+TARGET := store_mapper
 
 LDFLAGS := -L/usr/local/lib
 LDLIBS := -lgtest -lgtest_main -pthread
