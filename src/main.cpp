@@ -5,24 +5,27 @@
 #include "../include/BruteForceStrategy.hpp"
 #include "../include/NearestNeighborStrategy.hpp"
 #include "../include/TwoOptStrategy.hpp"
-
-void menuOptions(int option, ShoppingList* list) {
+//Function to handle various menu options for our main
+void menuOptions(int option, ShoppingList& list) {
+    //This switch handles the first menu options and the various possiblities
     switch(option) {
         case '1':
-            list->addItem();
+            list.addItem();
             break;
         case '2':
-            list->removeItem();
+            list.removeItem();
             break;
         case '3':
-            list->viewCurrentList();
+            list.viewCurrentList();
             break;
         case '4': {
+            //For our search strategies, we need to initalize various variables
             char search_option = '0';
             bool cancel = false;
             Context k;
             SearchStrategy* newStrategy;
-            list->getList().push_back(new ItemNode("Exit",-1,false));
+            //Add an exit node to our list to be included in the search
+            list.getList().push_back(new ItemNode("Exit",-1,false));
             std::cout << "Now please select an option below:\n1)Use Brute Force Algorithm\n2)Use Nearest Neighbor Algorithm\n3)Use 2-Opt Algorithm\n4)Choose Algorithm for Me!\n5)Cancel" << std::endl;
             try
             {
@@ -30,6 +33,7 @@ void menuOptions(int option, ShoppingList* list) {
                 if(!isdigit(search_option)) {
                     throw std::invalid_argument("Please enter a valid argument!");
                 }
+                //second switch for the various search options
                 switch(search_option) {
                     case '1': {
                         newStrategy = new BruteForceStrategy();
@@ -50,7 +54,8 @@ void menuOptions(int option, ShoppingList* list) {
                         break;
                     }
                     case '4': {
-                        std::vector<ItemNode*> shopList = list->getList();
+                        //Since the various strategies are better for certain sizes, the size will decide which strategy to pick
+                        std::vector<ItemNode*> shopList = list.getList();
                         if (shopList.size() < 10) {
                             newStrategy = new BruteForceStrategy();
                         } else if (shopList.size() < 20) {
@@ -70,10 +75,9 @@ void menuOptions(int option, ShoppingList* list) {
                 if (cancel) {
                     break;
                 } else {
-                    std::vector<Edge> path = k.strategy(*list);
-                    // print path!!!!
+                    std::vector<Edge> path = k.strategy(list);
+                    // print path when done
                     GroceryStore::getInstance().printShortestPath(path);
-
                 }
             }
             catch(const std::invalid_argument &e) {
@@ -96,16 +100,17 @@ void menuOptions(int option, ShoppingList* list) {
     }
 }
 
-
 int main(int argv, char** argc) {
-    ShoppingList* list = new ShoppingList();
+    //create list to be used
+    ShoppingList list;
     std::cout << "Welcome to StoreMapper!" << std::endl;
-
     char option = '0';
+    //basic loop used to control program flow
     while(option != '5') {
         std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Exit" << std::endl;
         try
         {
+            //error handling that will check to make sure that the given argument is a number not a character
             std::cin >> option;
             if(!isdigit(option)) {
                 throw std::invalid_argument("Please enter a valid argument!");
@@ -123,5 +128,4 @@ int main(int argv, char** argc) {
         }
 
     }
-    delete list;
 }
