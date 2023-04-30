@@ -5,7 +5,7 @@
 
 class BruteForceStrategy : public SearchStrategy {
 public:
-    virtual void search(ShoppingList &shoppingList) override;
+    virtual std::vector<Edge> search(ShoppingList &shoppingList) override;
     virtual ~BruteForceStrategy() override;
 };
 
