@@ -2,7 +2,7 @@
 #define NEARESTNEIGHBOR
 
 #include "SearchStrategy.hpp"
-
+#include <climits>
 class NearestNeighborStrategy : public SearchStrategy {
 public:
     virtual std::vector<Edge> search(ShoppingList &shoppingList) override;

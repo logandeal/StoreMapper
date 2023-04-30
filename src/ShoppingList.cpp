@@ -76,6 +76,8 @@ ShoppingList::ShoppingList() {
     e.weight = 8;
     GroceryStore::getInstance().addEdge("A3Right",e);
     
+
+    list.push_back(new ItemNode("Enter",-1,false));
 }
 
 ShoppingList::~ShoppingList() {
@@ -159,7 +161,9 @@ void ShoppingList::removeItem() {
 
 void ShoppingList::viewCurrentList() {
     for(ItemNode* n : list) {
+        if(n->getPrice() != -1 || n->getPrice() != -1) {
         std::cout << n->getName() << "  : " << n->getPrice() << std::endl;
+        }
     }
 }
 

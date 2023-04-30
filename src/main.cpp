@@ -22,6 +22,7 @@ void menuOptions(int option, ShoppingList* list) {
             bool cancel = false;
             Context k;
             SearchStrategy* newStrategy;
+            list->getList().push_back(new ItemNode("Exit",-1,false));
             std::cout << "Now please select an option below:\n1)Use Brute Force Algorithm\n2)Use Nearest Neighbor Algorithm\n3)Use 2-Opt Algorithm\n4)Choose Algorithm for Me!\n5)Cancel" << std::endl;
             try
             {
