@@ -17,4 +17,23 @@
   - If the user chooses to find the shortest path through the grocery store, they will be given a choice of multiple different search algorithms that would search through the store. 
   
 # Functionality
+  - Singleton Design Pattern for GroceryStore graph
+
+  - Strategy Design Pattern for choosing the search algorithm
+
+  - Exception Handling in main
+
+  - Unit tests for all major aspects of code
+
+# Dependencies
+  - GTest
+
+  - Make
+
   -
+  
+# How to run
+  - To run the whole program, open up the StoreMapper folder, and run make. The executable will be created, then all that needs to be done is run ./<placeholdername>
+  
+  - To run the tests, you must first cd into the test folder, run make, then run ./<placeholdertest>
+  
