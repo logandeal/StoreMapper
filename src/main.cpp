@@ -17,7 +17,7 @@ void menuOptions(int option, ShoppingList* list) {
         case '3':
             list->viewCurrentList();
             break;
-        case '4':
+        case '4': {
             char search_option = '0';
             bool cancel = false;
             Context k;
@@ -85,6 +85,7 @@ void menuOptions(int option, ShoppingList* list) {
                 std::cerr << e.what() << '\n';
             }
             break;
+        }
         case '5':
             std::cout << "Thank you for using StoreMapper!" << std::endl;
             break;
