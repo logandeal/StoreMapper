@@ -4,6 +4,6 @@ void Context::setStrategy(SearchStrategy* strat_)  {
     strat = strat_;
 }
 
-void Context::strategy(ShoppingList &shoppingList) {
-    if (strat) strat->search(shoppingList); 
+std::vector<Edge> Context::strategy(ShoppingList &shoppingList) {
+    if (strat) return strat->search(shoppingList); 
 }     
