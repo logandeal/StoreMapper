@@ -33,6 +33,7 @@ class GroceryStore {
         void deleteNode(std::string out);
         void deleteEdge(std::string out, Edge edgeout);
         void printMap();
+        void printShortestPath(std::vector<Edge> shortest);
         std::map<std::string, std::vector<Edge>> getMap();
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;

@@ -1,6 +1,6 @@
 #ifndef SHOPPINGLISTTEST_GUARD
 #define SHOPPINGLISTTEST_GUARD
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "../../include/ShoppingList.hpp"
 
 
