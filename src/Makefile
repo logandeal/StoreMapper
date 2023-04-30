@@ -8,7 +8,7 @@ TARGET := main
 LDFLAGS := -L/usr/local/lib
 LDLIBS := -lgtest -lgtest_main -pthread
 
-.PHONY : all
+.PHONY : store_mapper
 all : $(TARGET)
 
 %.o : %.cpp $(HEADERS)
