@@ -12,7 +12,6 @@ class ShoppingListTest : public ::testing::Test {
         }
         void TearDown() override {
             delete list;
-            GroceryStore::getInstance().deleteMap();
         }
 };
 
