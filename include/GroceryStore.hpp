@@ -43,7 +43,7 @@ class GroceryStore {
         way aisles, we will need to basically add the edges twice (an edge for each direction)*/
         GroceryStore(){}; 
 };
-
-
+//This function will use the singleton grocery store to add the nodes/edges needed for the search
+void setupGroceryStore();
 
 #endif

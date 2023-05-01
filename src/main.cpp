@@ -109,6 +109,7 @@ void menuOptions(int option, ShoppingList& list) {
 int main(int argv, char** argc) {
     //create list to be used
     ShoppingList list;
+    setupGroceryStore();
     std::cout << "Welcome to StoreMapper!" << std::endl;
     char option = '0';
     std::cout << std::fixed<< std::setprecision(2);

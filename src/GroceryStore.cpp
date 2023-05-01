@@ -69,3 +69,73 @@ void GroceryStore::printShortestPath(std::vector<Edge> shortest){
 void GroceryStore::deleteMap(){
     adjacencyList.clear();
 }
+
+void setupGroceryStore() {
+    //we setup the grocery store map at this time as well by adding the same items to the grocery store, as well as the edges that connect them
+    GroceryStore::getInstance().addNode("Soda");
+    GroceryStore::getInstance().addNode("Cheese");
+    GroceryStore::getInstance().addNode("Milk");
+    GroceryStore::getInstance().addNode("Cookies");
+    GroceryStore::getInstance().addNode("Chips");
+    GroceryStore::getInstance().addNode("Juice");
+    GroceryStore::getInstance().addNode("Yogurt");
+    GroceryStore::getInstance().addNode("Eggs");
+
+    GroceryStore::getInstance().addNode("Enter");
+    GroceryStore::getInstance().addNode("A1Left");
+    GroceryStore::getInstance().addNode("A1Right");
+    GroceryStore::getInstance().addNode("A2Left");
+    GroceryStore::getInstance().addNode("A2Right");
+    GroceryStore::getInstance().addNode("A3Left");
+    GroceryStore::getInstance().addNode("A3Right");
+    GroceryStore::getInstance().addNode("Exit");
+    //Adding the various edges to the grocery store
+    Edge e;
+    e.name = "A1Left";
+    e.weight = 2;
+    GroceryStore::getInstance().addEdge("Enter",e);
+    e.name = "A1Right";
+    e.weight = 6;
+    GroceryStore::getInstance().addEdge("Enter",e);
+    e.weight = 1;
+    GroceryStore::getInstance().addEdge("Cheese",e);
+    e.name = "Cheese";
+    e.weight = 5;
+    GroceryStore::getInstance().addEdge("Milk",e);
+    e.name = "Milk";
+    e.weight = 4;
+    GroceryStore::getInstance().addEdge("A1Left",e);
+    e.name = "A2Left";
+    e.weight = 3;
+    GroceryStore::getInstance().addEdge("A1Left",e);
+    e.weight = 1;
+    GroceryStore::getInstance().addEdge("Chips",e);
+    e.name = "Cookies";
+    e.weight = 4;
+    GroceryStore::getInstance().addEdge("Chips",e);
+    e.weight = 2;
+    GroceryStore::getInstance().addEdge("Soda",e);
+    e.name = "A2Right";
+    e.weight = 3;
+    GroceryStore::getInstance().addEdge("Soda",e);
+    GroceryStore::getInstance().addEdge("A1Right",e);
+    GroceryStore::getInstance().addEdge("A3Right",e);
+    e.name = "Juice";
+    e.weight = 5;
+    GroceryStore::getInstance().addEdge("A3Right",e);
+    e.name = "Yogurt";
+    e.weight = 1;
+    GroceryStore::getInstance().addEdge("Juice",e);
+    e.weight = 3;
+    GroceryStore::getInstance().addEdge("Eggs",e);
+    e.name = "A3Left";
+    e.weight = 1;
+    GroceryStore::getInstance().addEdge("Eggs",e);
+    e.weight = 3;
+    GroceryStore::getInstance().addEdge("A2Left",e);
+    e.name = "Exit";
+    e.weight = 4;
+    GroceryStore::getInstance().addEdge("A3Left",e);
+    e.weight = 8;
+    GroceryStore::getInstance().addEdge("A3Right",e);
+}
