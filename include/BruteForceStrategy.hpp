@@ -5,8 +5,8 @@
 #include <climits>
 class BruteForceStrategy : public SearchStrategy {
 public:
-    virtual std::vector<Edge> search(ShoppingList &shoppingList) override;
-    virtual ~BruteForceStrategy() override;
+    std::vector<Edge> search(ShoppingList &shoppingList) override;
+    ~BruteForceStrategy() override;
 };
 
 #endif

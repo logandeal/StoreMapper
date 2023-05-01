@@ -5,8 +5,8 @@
 
 class TwoOptStrategy : public SearchStrategy {
 public:
-    virtual std::vector<Edge> search(ShoppingList &shoppingList) override;
-    virtual ~TwoOptStrategy() override;
+    std::vector<Edge> search(ShoppingList &shoppingList) override;
+    ~TwoOptStrategy() override;
 };
 
 #endif
