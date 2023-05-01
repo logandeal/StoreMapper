@@ -3,7 +3,7 @@
 #include "../include/NearestNeighborStrategy.hpp"
 // helper function to get the index of an item in the shopping list
 int NearestNeighborStrategy::getIndex(const std::vector<ItemNode*>& shopList, const std::string& name) {
-    for (int i = 0; i < shopList.size(); i++) {
+    for (int i = 0; i < (int) shopList.size(); i++) {
         if (shopList[i]->getName() == name) {
             return i;
         }
@@ -35,7 +35,7 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList &shoppingList) {
     std::vector<std::string> visited; // keep track of visited items
     visited.push_back(current); 
 
-    while (visited.size() < n) { // while there are still items to visit
+    while ((int) visited.size() < n) { // while there are still items to visit
         int minDist = INT_MAX;
         std::string nextItem;
         // loop through all the neighboring items and find the one with the shortest distance
