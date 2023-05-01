@@ -4,6 +4,7 @@
 #include <vector>
 #include "ItemNode.hpp"
 #include <string>
+#include <iomanip>
 #include "GroceryStore.hpp"
 class ShoppingList {
     public:
@@ -13,6 +14,7 @@ class ShoppingList {
         ShoppingList();
         ~ShoppingList();
         std::vector<ItemNode*> getList();
+        void setupForSearch();
     private:
         std::vector<ItemNode*> list;
         std::vector<ItemNode*> possiblechoices;

@@ -77,8 +77,6 @@ ShoppingList::ShoppingList() {
     e.weight = 8;
     GroceryStore::getInstance().addEdge("A3Right",e);
     
-    //Adding the enter node to our final list which will be searched upon
-    list.push_back(new ItemNode("Enter",-1,false));
 }
 
 ShoppingList::~ShoppingList() {
@@ -89,6 +87,12 @@ ShoppingList::~ShoppingList() {
     for(ItemNode* node : this->list) {
         delete node;
     }
+}
+void ShoppingList::setupForSearch() {
+    //Add an exit node to our list to be included in the search
+    list.push_back(new ItemNode("Exit",-1,false));
+    //Adding the enter node to our final list which will be searched upon
+    list.insert(list.begin(), new ItemNode("Enter",-1,false));
 }
 //Getter for the final list
 std::vector<ItemNode*> ShoppingList::getList() {

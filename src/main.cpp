@@ -24,8 +24,6 @@ void menuOptions(int option, ShoppingList& list) {
             bool cancel = false;
             Context k;
             SearchStrategy* newStrategy;
-            //Add an exit node to our list to be included in the search
-            list.getList().push_back(new ItemNode("Exit",-1,false));
             std::cout << "Now please select an option below:\n1)Use Brute Force Algorithm\n2)Use Nearest Neighbor Algorithm\n3)Use 2-Opt Algorithm\n4)Choose Algorithm for Me!\n5)Cancel" << std::endl;
             try
             {
@@ -36,18 +34,24 @@ void menuOptions(int option, ShoppingList& list) {
                 //second switch for the various search options
                 switch(search_option) {
                     case '1': {
+                        //setup for search by adding nodes for beginning and end
+                        list.setupForSearch();
                         newStrategy = new BruteForceStrategy();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
                     }
                     case '2': {
+                        //setup for search by adding nodes for beginning and end
+                        list.setupForSearch();
                         newStrategy = new NearestNeighborStrategy();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
                     }
                     case '3': {
+                        //setup for search by adding nodes for beginning and end
+                        list.setupForSearch();
                         newStrategy = new TwoOptStrategy();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
@@ -63,6 +67,8 @@ void menuOptions(int option, ShoppingList& list) {
                         } else {
                             newStrategy = new TwoOptStrategy();
                         }
+                        //setup for search by adding nodes for beginning and end
+                        list.setupForSearch();
                         k.setStrategy(newStrategy);
                         delete newStrategy;
                         break;
