@@ -1,6 +1,7 @@
 CXXFLAGS := -std=c++17 -Wall -ggdb -O0
 HEADERS := $(wildcard *.hpp)
-SOURCES := $(wildcard *.cpp)
+#SOURCES := $(wildcard *.cpp)
+SOURCES := main.cpp ../src/BruteForceStrategy.cpp ../src/Context.cpp ../src/GroceryStore.cpp ../src/ItemNode.cpp ../src/NearestNeighborStrategy.cpp ../src/ShoppingList.cpp ../src/TwoOptStrategy.cpp
 OBJS := $(SOURCES:%.cpp=%.o)
 
 TARGET := main

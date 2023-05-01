@@ -2,7 +2,7 @@
 #define SHOPPINGLISTTEST_GUARD
 #include "gtest/gtest.h"
 #include "../../include/ShoppingList.hpp"
-
+#include "../../include/GroceryStore.hpp"
 
 class ShoppingListTest : public ::testing::Test {
     protected:
