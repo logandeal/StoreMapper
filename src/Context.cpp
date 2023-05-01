@@ -1,7 +1,7 @@
 #include "../include/Context.hpp"
 
-void Context::setStrategy(SearchStrategy* strat_)  { 
-    strat = strat_;
+void Context::setStrategy(std::unique_ptr<SearchStrategy> strat_)  { 
+    strat = std::move(strat_);
 }
 
 std::vector<Edge> Context::strategy(ShoppingList &shoppingList) {

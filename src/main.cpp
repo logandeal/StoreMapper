@@ -23,7 +23,6 @@ void menuOptions(int option, ShoppingList& list) {
             char search_option = '0';
             bool cancel = false;
             Context k;
-            SearchStrategy* newStrategy;
             std::cout << "Now please select an option below:\n1)Use Brute Force Algorithm\n2)Use Nearest Neighbor Algorithm\n3)Use 2-Opt Algorithm\n4)Choose Algorithm for Me!\n5)Cancel" << std::endl;
             try
             {
@@ -36,41 +35,33 @@ void menuOptions(int option, ShoppingList& list) {
                     case '1': {
                         //setup for search by adding nodes for beginning and end
                         list.setupForSearch();
-                        newStrategy = new BruteForceStrategy();
-                        k.setStrategy(newStrategy);
-                        delete newStrategy;
+                        k.setStrategy(std::make_unique<BruteForceStrategy>());
                         break;
                     }
                     case '2': {
                         //setup for search by adding nodes for beginning and end
                         list.setupForSearch();
-                        newStrategy = new NearestNeighborStrategy();
-                        k.setStrategy(newStrategy);
-                        delete newStrategy;
+                        k.setStrategy(std::make_unique<NearestNeighborStrategy>());
                         break;
                     }
                     case '3': {
                         //setup for search by adding nodes for beginning and end
                         list.setupForSearch();
-                        newStrategy = new TwoOptStrategy();
-                        k.setStrategy(newStrategy);
-                        delete newStrategy;
+                        k.setStrategy(std::make_unique<TwoOptStrategy>());
                         break;
                     }
                     case '4': {
+                        //setup for search by adding nodes for beginning and end
+                        list.setupForSearch();
                         //Since the various strategies are better for certain sizes, the size will decide which strategy to pick
                         std::vector<ItemNode*> shopList = list.getList();
                         if (shopList.size() < 10) {
-                            newStrategy = new BruteForceStrategy();
+                            k.setStrategy(std::make_unique<BruteForceStrategy>());
                         } else if (shopList.size() < 20) {
-                            newStrategy = new NearestNeighborStrategy();
+                            k.setStrategy(std::make_unique<NearestNeighborStrategy>());
                         } else {
-                            newStrategy = new TwoOptStrategy();
+                            k.setStrategy(std::make_unique<TwoOptStrategy>());
                         }
-                        //setup for search by adding nodes for beginning and end
-                        list.setupForSearch();
-                        k.setStrategy(newStrategy);
-                        delete newStrategy;
                         break;
                     }
                     case '5': {
