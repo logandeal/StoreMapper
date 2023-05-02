@@ -36,6 +36,9 @@ class GroceryStore {
         void printShortestPath(std::vector<Edge> shortest);
         std::map<std::string, std::vector<Edge>> getMap();
         void deleteMap();
+        int printNodes();
+        void getEdge();
+        std::string returnNodeName(int node);
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
         /*this adjacency list is a map, where it takes in the name of the node and the edge connected to it. It basically works

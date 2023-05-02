@@ -47,6 +47,63 @@ void GroceryStore::printMap(){
     }
 }
 
+int GroceryStore::printNodes(){
+    int i = 1;
+    for(auto it = adjacencyList.cbegin(); it != adjacencyList.cend(); ++it){ //looping through the adjacency list
+        std::cout << i << ") " << it->first << "\n";
+        i++;
+    }
+    return i;
+}
+
+std::string GroceryStore::returnNodeName(int node){
+    int i = 1;
+    for(auto it = adjacencyList.cbegin(); it != adjacencyList.cend(); ++it){ //looping through the adjacency list
+        if(i == node){
+            return it->first;
+        }
+        i++;
+    }
+    return "Doesn't Exist";
+}
+
+void GroceryStore::getEdge(){
+    std::cout << "Which node would you like to delete an edge from?\n";
+    int i = 1;
+    for(auto it = adjacencyList.cbegin(); it != adjacencyList.cend(); ++it){ //looping through the adjacency list
+        std::cout << i << ") " << it->first << "\n";
+        i++;
+    }
+    int check = 0;
+    std::cin >> check;
+    std::cin.clear();
+    if(check < 1 || check > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    std::string name = GroceryStore::getInstance().returnNodeName(check);
+    int k = 1;
+    for(auto it = adjacencyList.at(name).cbegin(); it != adjacencyList.at(name).cend(); ++it){
+        std::cout << k << ") [" << it->name << ", " << it->weight << "]\n";
+        k++;
+    }
+    int check2 = 0;
+    std::cin >> check2;
+    if(check2 < 1 || check2 > k){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    Edge e;
+    int counter = 1;
+    for(auto it = adjacencyList.at(name).cbegin(); it != adjacencyList.at(name).cend(); ++it){ 
+        if(counter == check2){
+            e.name = it->name;
+            e.weight = it->weight;
+            GroceryStore::getInstance().deleteEdge(name, e);
+            break;
+        }  
+        counter++;
+    }
+}
+
 //destructor
 GroceryStore::~GroceryStore(){
 
