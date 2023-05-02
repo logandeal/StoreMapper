@@ -6,6 +6,7 @@
 #include "../include/NearestNeighborStrategy.hpp"
 #include "../include/TwoOptStrategy.hpp"
 //Function to handle various menu options for our main
+
 void menuOptions(int option, ShoppingList& list) {
     //This switch handles the first menu options and the various possiblities
     switch(option) {
@@ -88,7 +89,63 @@ void menuOptions(int option, ShoppingList& list) {
             }
             break;
         }
-        case '5':
+        case '5': {
+            std::cout << "WARNING! IF YOU CHANGE THE GROCERY STORE MAPPING, THE SEARCH MAY FAIL AND LEAD TO UNEXPECTED RESULTS!\nMAKE SURE THE STORE IS WELL LAID OUT!\nARE YOU SURE YOU WANT TO CONTINUE?\n1) Yes, 2) No\n";
+            char search_option = '0';
+            try {
+                std::cin >> search_option;
+                if(!isdigit(search_option)) {
+                    throw std::invalid_argument("Please enter a valid argument!");
+                }
+                switch(search_option){
+                    case '1':{
+                        while(true){
+                            char search2 = '0';
+                            std::cout << "What would you like to change?\n1)Add Item\n2)Add Aisle\n3)Add Path Between Two Nodes\n4)Remove Path Between Two Nodes (May cause unexpected behavior)\n5)Remove Node (May cause unexpected behavior)\n6)Exit\n";
+                            std::cin >> search2;
+                            if(search2 == '6'){
+                                break;
+                            }
+                            else if(search2 == '1'){
+                                
+                            }
+                            search_option = '0';
+                            std::cout << "Would you like to continue?\n1)Yes 2)No\n";
+                            std::cin >> search_option;
+                            if(!isdigit(search_option)) {
+                                throw std::invalid_argument("Please enter a valid argument!");
+                            }
+                            else if(search_option != '1' && search_option != '2'){
+                                std::cout << "Invalid selection! Try again later!\n";
+                                break;
+                            }
+                            else if(search_option == '1'){
+                                continue;
+                            }
+                            else{
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case '2': {
+                        break;
+                    } 
+                    default:{
+                        throw std::invalid_argument("Invalid Selection! Please try again.");
+                        break;
+                    }       
+                }
+            }
+            catch(const std::invalid_argument &e) {
+                std::cerr << e.what() << '\n';
+                //if we get an invalid argument, we need to flush cin to allow it to be used again
+                std::cin.clear();
+                std::cin.ignore(option, '\n');
+            }
+            break;
+        }
+        case '6':
             std::cout << "Thank you for using StoreMapper!" << std::endl;
             break;
         default:
@@ -105,8 +162,8 @@ int main(int argv, char** argc) {
     char option = '0';
     std::cout << std::fixed<< std::setprecision(2);
     //basic loop used to control program flow
-    while(option != '5') {
-        std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Exit" << std::endl;
+    while(option != '6') {
+        std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Change Grocery Store Layout\n6)Exit" << std::endl;
         try
         {
             //error handling that will check to make sure that the given argument is a number not a character
@@ -126,6 +183,6 @@ int main(int argv, char** argc) {
         {
             std::cerr << e.what() << '\n';
         }
-
     }
 }
+
