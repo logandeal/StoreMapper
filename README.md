@@ -38,3 +38,4 @@
   
   - To run the tests, you must first cd into the test folder, run make, then run ./main
   
+  - You can also pull a docker image with all dependencies pre-installed from https://hub.docker.com/r/rmilewski4/storemapper
