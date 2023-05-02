@@ -107,7 +107,20 @@ void menuOptions(int option, ShoppingList& list) {
                                 break;
                             }
                             else if(search2 == '1'){
-                                
+                                float price;
+                                bool coupon;
+                                std::string item;
+                                std::cout << "What item would you like to add?\n";
+                                std::cin >> item;
+                                std::cout << "What is the price of your item? (Must be a number)\n";
+                                std::cin >> price;
+                                std::cout << "Is there a coupon for this item? 1)Yes 0)No)\n";
+                                std::cin >> coupon;
+                                ItemNode* node = new ItemNode(item,price,coupon);
+                                list.addToPossibleChoices(node);
+                                GroceryStore::getInstance().addNode(item);
+                                GroceryStore::getInstance().printMap();
+                                list.viewCurrentList();
                             }
                             search_option = '0';
                             std::cout << "Would you like to continue?\n1)Yes 2)No\n";
