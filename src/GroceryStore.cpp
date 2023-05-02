@@ -71,7 +71,7 @@ void GroceryStore::deleteMap(){
 }
 
 void setupGroceryStore() {
-    //we setup the grocery store map at this time as well by adding the same items to the grocery store, as well as the edges that connect them
+    //we setup the grocery store map at this time by adding the same items to the grocery store that we created in the shopping list, as well as the edges that connect them
     GroceryStore::getInstance().addNode("Soda");
     GroceryStore::getInstance().addNode("Cheese");
     GroceryStore::getInstance().addNode("Milk");
