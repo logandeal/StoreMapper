@@ -147,9 +147,7 @@ void menuOptions(int option, ShoppingList& list) {
                                 if(node < 1 || node > i){
                                     throw std::invalid_argument("Please enter a valid argument!");
                                 }
-                                std::cout << node << "\n";
                                 std::string nodename = GroceryStore::getInstance().returnNodeName(node);
-                                std::cout << nodename << "\n";
                                 std::cout << "Which node would you like to connect to the first node?\n";
                                 GroceryStore::getInstance().printNodes();
                                 std::cin >> node2;
@@ -159,9 +157,7 @@ void menuOptions(int option, ShoppingList& list) {
                                 else if(node == node2){
                                     throw std::invalid_argument("Cannot connect the node to itself!");
                                 }
-                                std::cout << node2 << "\n";
                                 std::string nodename2 = GroceryStore::getInstance().returnNodeName(node2);
-                                std::cout << nodename2 << "\n";
                                 float weight;
                                 std::cout << "How far apart are they (in steps)?\n";
                                 std::cin >> weight;
@@ -172,6 +168,17 @@ void menuOptions(int option, ShoppingList& list) {
                             }
                             else if(search2 == '4'){
                                 GroceryStore::getInstance().getEdge();
+                            }
+                            else if(search2 == '5'){
+                                std::cout << "Which node would you like to delete?\n";
+                                int node;
+                                int i = GroceryStore::getInstance().printNodes();
+                                std::cin >> node;
+                                if(node < 1 || node > i){
+                                    throw std::invalid_argument("Please enter a valid argument!");
+                                }
+                                std::string nodename = GroceryStore::getInstance().returnNodeName(node);
+                                GroceryStore::getInstance().deleteNode(nodename);
                             }
                             search_option = '0';
                             std::cout << "Would you like to continue?\n1)Yes 2)No\n";
