@@ -30,10 +30,10 @@
 
   - Make
 
-  -
   
 # How to run
   - To run the whole program, open up the StoreMapper folder, and run make. The executable will be created, then all that needs to be done is run ./<placeholdername>
   
   - To run the tests, you must first cd into the test folder, run make, then run ./<placeholdertest>
   
+  - You can also pull a docker image with all dependencies pre-installed from https://hub.docker.com/r/rmilewski4/storemapper
