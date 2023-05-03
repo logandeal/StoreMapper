@@ -103,7 +103,7 @@ void menuOptions(int option, ShoppingList& list) {
                         while(true){
                             char search2 = '0';
                             //getting the users input
-                            std::cout << "What would you like to change?\n1)Add Item\n2)Add Aisle\n3)Add Path Between Two Nodes\n4)Remove Path Between Two Nodes (May cause unexpected behavior)\n5)Remove Node (May cause unexpected behavior)\n6)Exit\n";
+                            std::cout << "What would you like to change?\n1) Add Item\n2) Add Aisle\n3) Add Path Between Two Nodes\n4) Remove Path Between Two Nodes (May cause unexpected behavior)\n5) Remove Node (May cause unexpected behavior)\n6) Exit\n";
                             std::cin >> search2;
                             //exit case
                             if(search2 == '6'){
@@ -121,7 +121,7 @@ void menuOptions(int option, ShoppingList& list) {
                                 std::cout << "What is the price of your item? (Must be a number)\n";
                                 std::cin >> price;
                                 //getting coupon bool
-                                std::cout << "Is there a coupon for this item? 1)Yes 0)No)\n";
+                                std::cout << "Is there a coupon for this item? 1) Yes 0) No)\n";
                                 std::cin >> coupon;
                                 ItemNode* node = new ItemNode(item,price,coupon);
                                 //creating new itemnode
@@ -234,7 +234,7 @@ int main(int argv, char** argc) {
     std::cout << std::fixed<< std::setprecision(2);
     //basic loop used to control program flow
     while(option != '6') {
-        std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Change Grocery Store Layout\n6)Exit" << std::endl;
+        std::cout << "Please select an option below:\n1) Add Item to List\n2) Remove Item from List\n3) View Current Cart\n4) View Path to Items\n5) Change Grocery Store Layout\n6) Exit" << std::endl;
         try
         {
             //error handling that will check to make sure that the given argument is a number not a character
