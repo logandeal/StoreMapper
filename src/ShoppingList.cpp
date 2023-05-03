@@ -123,3 +123,7 @@ bool hasCharacters(std::string s) {
     }
     return false;
 }
+
+void ShoppingList::addToPossibleChoices(ItemNode* item){
+    possiblechoices.push_back(item);
+}

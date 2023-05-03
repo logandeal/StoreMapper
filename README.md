@@ -24,7 +24,7 @@
 
   - Strategy Design Pattern for choosing the search algorithm
 
-  - Exception Handling in main
+  - Exception Handling
 
   - Unit tests for all major aspects of code
 
