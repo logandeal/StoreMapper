@@ -23,7 +23,7 @@ void menuOptions(int option, ShoppingList& list) {
             char search_option = '0';
             bool cancel = false;
             Context k;
-            std::cout << "Now please select an option below:\n1)Use Brute Force Algorithm\n2)Use Nearest Neighbor Algorithm\n3)Use 2-Opt Algorithm\n4)Choose Algorithm for Me!\n5)Cancel" << std::endl;
+            std::cout << "Now please select an option below:\n1) Use Brute Force Algorithm\n2) Use Nearest Neighbor Algorithm\n3) Use 2-Opt Algorithm\n4) Choose Algorithm for Me!\n5) Cancel" << std::endl;
             try
             {
                 std::cin >> search_option;
@@ -106,7 +106,7 @@ int main(int argv, char** argc) {
     std::cout << std::fixed<< std::setprecision(2);
     //basic loop used to control program flow
     while(option != '5') {
-        std::cout << "Please select an option below:\n1)Add Item to List\n2)Remove Item from List\n3)View Current Cart\n4)View Path to Items\n5)Exit" << std::endl;
+        std::cout << "Please select an option below:\n1) Add Item to List\n2) Remove Item from List\n3) View Current Cart\n4) View Path to Items\n5) Exit" << std::endl;
         try
         {
             //error handling that will check to make sure that the given argument is a number not a character

@@ -110,10 +110,7 @@ void ShoppingList::removeItem() {
 //Function to view the current final list
 void ShoppingList::viewCurrentList() {
     for(ItemNode* n : list) {
-        //iterate through, we don't want to print the enter/exit node so if the given price is not -1 (what is assigned to those nodes) then print the node and its values
-        if(n->getPrice() != -1 || n->getPrice() != -1) {
         std::cout << n->getName() << "  : $" <<n->getPrice() << std::endl;
-        }
     }
 }
 //helper function for error checking to see if a given string has characters inside of it
