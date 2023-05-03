@@ -127,3 +127,7 @@ bool hasCharacters(std::string s) {
 void ShoppingList::addToPossibleChoices(ItemNode* item){
     possiblechoices.push_back(item);
 }
+void ShoppingList::cleanupAfterSearch() {
+    list.pop_back();
+    list.erase(list.begin());
+}

@@ -16,6 +16,7 @@ class ShoppingList {
         std::vector<ItemNode*> getList();
         void setupForSearch();
         void addToPossibleChoices(ItemNode* item);
+        void cleanupAfterSearch();
     private:
         std::vector<ItemNode*> list;
         std::vector<ItemNode*> possiblechoices;
