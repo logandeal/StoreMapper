@@ -129,23 +129,31 @@ void GroceryStore::deleteMap(){
 
 void setupGroceryStore() {
     //we setup the grocery store map at this time by adding the same items to the grocery store that we created in the shopping list, as well as the edges that connect them
-    GroceryStore::getInstance().addNode("Soda");
-    GroceryStore::getInstance().addNode("Cheese");
-    GroceryStore::getInstance().addNode("Milk");
-    GroceryStore::getInstance().addNode("Cookies");
-    GroceryStore::getInstance().addNode("Chips");
-    GroceryStore::getInstance().addNode("Juice");
-    GroceryStore::getInstance().addNode("Yogurt");
-    GroceryStore::getInstance().addNode("Eggs");
-
-    GroceryStore::getInstance().addNode("Enter");
-    GroceryStore::getInstance().addNode("A1Left");
-    GroceryStore::getInstance().addNode("A1Right");
-    GroceryStore::getInstance().addNode("A2Left");
-    GroceryStore::getInstance().addNode("A2Right");
-    GroceryStore::getInstance().addNode("A3Left");
-    GroceryStore::getInstance().addNode("A3Right");
-    GroceryStore::getInstance().addNode("Exit");
+    std::ifstream node_file;
+    try
+    {
+        //open up the node setup file
+        node_file.open("storenodesetup.txt");
+        if(!node_file) {
+            throw std::ios_base::failure("Cannot open file!");       
+        }
+    }
+    catch(const std::ios_base::failure& e)
+    {
+        std::cerr << e.what() << '\n';
+        return;
+    }
+    std::string data = "";
+    //parse through the file until we reach the end
+    while(getline(node_file,data)) {
+        //Add nodes to the singleton grocery store with the given string from the file
+        GroceryStore::getInstance().addNode(data);
+        //Since the data is pushed back on data for each line, we reset data to make sure that each line is being read
+        //by itself
+        data = "";
+    }
+    //Close the file when we are done to avoid memory leaks
+    node_file.close();
     //Adding the various edges to the grocery store
     Edge e;
     e.name = "A1Left";
