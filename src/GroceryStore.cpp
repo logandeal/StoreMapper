@@ -155,8 +155,31 @@ void setupGroceryStore() {
     //Close the file when we are done to avoid memory leaks
     node_file.close();
     //Adding the various edges to the grocery store
+    std::ifstream edge_file;
+    try
+    {
+        //open up the edge setup file
+        edge_file.open("storeedgesetup.csv");
+        if(!edge_file) {
+            throw std::ios_base::failure("Cannot open file!");       
+        }
+    }
+    catch(const std::ios_base::failure& e)
+    {
+        std::cerr << e.what() << '\n';
+        return;
+    }
     Edge e;
-    e.name = "A1Left";
+    while(edge_file.peek()!= EOF) {
+        std::string node1 = "";
+        std::string node2 = "";
+        std::string weight_string = "";
+        getline(edge_file,node1,',');
+        getline(edge_file,weight_string,',');
+        getline(edge_file,node2,',');
+        std::cout << "node1: "<< node1 << "\nweight: " << weight_string << "\nnode2: " << node2 << std::endl;
+    }
+    /*e.name = "A1Left";
     e.weight = 2;
     GroceryStore::getInstance().addEdge("Enter",e);
     e.name = "A1Right";
@@ -202,5 +225,5 @@ void setupGroceryStore() {
     e.weight = 4;
     GroceryStore::getInstance().addEdge("A3Left",e);
     e.weight = 8;
-    GroceryStore::getInstance().addEdge("A3Right",e);
+    GroceryStore::getInstance().addEdge("A3Right",e);*/
 }
