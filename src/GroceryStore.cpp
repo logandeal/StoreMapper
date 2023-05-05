@@ -70,6 +70,7 @@ std::string GroceryStore::returnNodeName(int node){
 void GroceryStore::getEdge(){
     std::cout << "Which node would you like to delete an edge from?\n";
     int i = 1;
+    //looping through the whole list
     for(auto it = adjacencyList.cbegin(); it != adjacencyList.cend(); ++it){ //looping through the adjacency list
         std::cout << i << ") " << it->first << "\n";
         i++;
@@ -77,27 +78,33 @@ void GroceryStore::getEdge(){
     int check = 0;
     std::cin >> check;
     std::cin.clear();
+    //checking for valid argument
     if(check < 1 || check > i){
         throw std::invalid_argument("Please enter a valid argument!");
     }
+    //getting the node name
     std::string name = GroceryStore::getInstance().returnNodeName(check);
     int k = 1;
+    //looping through again for the other node
     for(auto it = adjacencyList.at(name).cbegin(); it != adjacencyList.at(name).cend(); ++it){
         std::cout << k << ") [" << it->name << ", " << it->weight << "]\n";
         k++;
     }
     int check2 = 0;
     std::cin >> check2;
+    //checking for valid argument
     if(check2 < 1 || check2 > k){
         throw std::invalid_argument("Please enter a valid argument!");
     }
+    //creating a new edge to store the one we want to delete
     Edge e;
     int counter = 1;
+    //looping through the first nodes connected edges
     for(auto it = adjacencyList.at(name).cbegin(); it != adjacencyList.at(name).cend(); ++it){ 
-        if(counter == check2){
+        if(counter == check2){ //checking for the given edge
             e.name = it->name;
             e.weight = it->weight;
-            GroceryStore::getInstance().deleteEdge(name, e);
+            GroceryStore::getInstance().deleteEdge(name, e); //deleting the edge
             break;
         }  
         counter++;
@@ -123,7 +130,8 @@ void GroceryStore::printShortestPath(std::vector<Edge> shortest){
 }
 
 
-void GroceryStore::deleteMap(){
+void GroceryStore::deleteMap(){ 
+    //deleting whole map for debug purposes
     adjacencyList.clear();
 }
 
@@ -190,4 +198,80 @@ void setupGroceryStoreEdges() {
         //create the edge in the singleton grocery store
         GroceryStore::getInstance().addEdge(node2,e);
     }
+}
+
+void GroceryStore::addItem(ShoppingList& list) {
+    float price;
+    bool coupon;
+    std::string item;
+    //getting name of item
+    std::cout << "What item would you like to add?\n";
+    std::cin >> item;
+    //getting price of item
+    std::cout << "What is the price of your item? (Must be a number)\n";
+    std::cin >> price;
+    //getting coupon bool
+    std::cout << "Is there a coupon for this item? 1) Yes 0) No)\n";
+    std::cin >> coupon;
+    ItemNode* node = new ItemNode(item,price,coupon);
+    //creating new itemnode
+    list.addToPossibleChoices(node);
+    //adding to list
+    GroceryStore::getInstance().addNode(item);
+    //adding to grocery store
+}
+
+void GroceryStore::addAisle(){
+    std::string name; //getting the name
+    std::cout << "What is the name of your aisle?\n";
+    std::cin >> name;
+    //storing that node
+    GroceryStore::getInstance().addNode(name);
+}
+
+void GroceryStore::addEdgeMenu(){
+    int node;
+    int node2;
+    std::cout << "Which node would you like connect first?\n";
+    //getting first node
+    int i = GroceryStore::getInstance().printNodes();
+    std::cin >> node;
+    if(node < 1 || node > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    //getting the name of that node
+    std::string nodename = GroceryStore::getInstance().returnNodeName(node);
+    std::cout << "Which node would you like to connect to the first node?\n";
+    GroceryStore::getInstance().printNodes();
+    std::cin >> node2;
+    //doing the same for node 2
+    if(node2 < 1 || node2 > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    else if(node == node2){
+        throw std::invalid_argument("Cannot connect the node to itself!"); //we don't want self recurring loops
+    }
+    //getting node2s name
+    std::string nodename2 = GroceryStore::getInstance().returnNodeName(node2);
+    float weight; //getting the weight of the edge
+    std::cout << "How far apart are they (in steps)?\n";
+    std::cin >> weight;
+    Edge e;
+    e.name = nodename2;
+    e.weight = weight; //creating the edge
+    GroceryStore::getInstance().addEdge(nodename, e); //adding the edge
+}
+
+void GroceryStore::deleteNodeMenu(){
+    std::cout << "Which node would you like to delete?\n";
+    int node; //getting the node
+    int i = GroceryStore::getInstance().printNodes();
+    std::cin >> node;
+    if(node < 1 || node > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    //finding the node name
+    std::string nodename = GroceryStore::getInstance().returnNodeName(node);
+    //deleting the node
+    GroceryStore::getInstance().deleteNode(nodename);
 }
