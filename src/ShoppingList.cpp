@@ -19,17 +19,18 @@ ShoppingList::ShoppingList() {
     while(getline(node_file,node_string)) {
         //Using a stringstream to parse each line of the CSV
         std::istringstream s(node_string);
-        //Variables that will hold the edge statistics
+        //Variables that will hold the node statistics
         std::string item = "";
         std::string price = "";
         std::string coupon = "";
-        //Get each edge variable, separated by a comma delimeter
+        //Get each node variable, separated by a comma delimeter
         getline(s,item, ',');
         getline(s,price,',');
         getline(s,coupon,',');
         possiblechoices.push_back(new ItemNode(item,std::stof(price),toBool(coupon)));
     }
 }
+//Helper function to determine if a string is true or false to convert it to boolean
 bool toBool(std::string s) {
     if(s == "false") {
         return false;
