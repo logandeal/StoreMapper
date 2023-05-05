@@ -1,18 +1,41 @@
 #include "../include/ShoppingList.hpp"
 ShoppingList::ShoppingList() {
-    //setting up our shopping list by adding the items in our store
-    possiblechoices.push_back(new ItemNode("Soda",10,false));
-    possiblechoices.push_back(new ItemNode("Cheese",3.4,false));
-    possiblechoices.push_back(new ItemNode("Milk",3.99,true));
-    possiblechoices.push_back(new ItemNode("Cookies",4.29,false));
-    possiblechoices.push_back(new ItemNode("Chips",2.49,false));
-    possiblechoices.push_back(new ItemNode("Juice",1.99,false));
-    possiblechoices.push_back(new ItemNode("Yogurt",0.59,true));
-    possiblechoices.push_back(new ItemNode("Eggs",5,false));
-
-    
+    std::ifstream node_file;
+    try
+    {
+        //open up the edge setup file
+        node_file.open("itemnodesetup.csv");
+        if(!node_file) {
+            throw std::ios_base::failure("Cannot open file!");       
+        }
+    }
+    catch(const std::ios_base::failure& e)
+    {
+        std::cerr << e.what() << '\n';
+        return;
+    }
+    std::string node_string = "";
+    //getting each line of the csv which holds one node, with the weight and possible coupons
+    while(getline(node_file,node_string)) {
+        //Using a stringstream to parse each line of the CSV
+        std::istringstream s(node_string);
+        //Variables that will hold the edge statistics
+        std::string item = "";
+        std::string price = "";
+        std::string coupon = "";
+        //Get each edge variable, separated by a comma delimeter
+        getline(s,item, ',');
+        getline(s,price,',');
+        getline(s,coupon,',');
+        possiblechoices.push_back(new ItemNode(item,std::stof(price),toBool(coupon)));
+    }
 }
-
+bool toBool(std::string s) {
+    if(s == "false") {
+        return false;
+    }
+    return true;
+}
 ShoppingList::~ShoppingList() {
     for(ItemNode* n : this->possiblechoices) {
         //iterating through and deleting all of the created nodes
