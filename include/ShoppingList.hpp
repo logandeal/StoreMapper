@@ -6,6 +6,9 @@
 #include <string>
 #include <iomanip>
 #include "GroceryStore.hpp"
+#include <sstream>
+#include <fstream>
+
 class ShoppingList {
     public:
         void addItem();
@@ -22,4 +25,5 @@ class ShoppingList {
         std::vector<ItemNode*> possiblechoices;
 };
 bool hasCharacters(std::string);
+bool toBool(std::string);
 #endif

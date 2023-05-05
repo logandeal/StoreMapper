@@ -5,8 +5,9 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 #include "ShoppingList.hpp"
-
 struct Edge {
     float weight;
     std::string name;
@@ -50,7 +51,8 @@ class GroceryStore {
         way aisles, we will need to basically add the edges twice (an edge for each direction)*/
         GroceryStore(){}; 
 };
-//This function will use the singleton grocery store to add the nodes/edges needed for the search
-void setupGroceryStore();
+//Thess functions will use the singleton grocery store to add the nodes/edges needed for the search
+void setupGroceryStoreNodes();
+void setupGroceryStoreEdges();
 
 #endif

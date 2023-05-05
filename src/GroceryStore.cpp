@@ -135,74 +135,69 @@ void GroceryStore::deleteMap(){
     adjacencyList.clear();
 }
 
-void setupGroceryStore() {
+void setupGroceryStoreNodes() {
     //we setup the grocery store map at this time by adding the same items to the grocery store that we created in the shopping list, as well as the edges that connect them
-    GroceryStore::getInstance().addNode("Soda");
-    GroceryStore::getInstance().addNode("Cheese");
-    GroceryStore::getInstance().addNode("Milk");
-    GroceryStore::getInstance().addNode("Cookies");
-    GroceryStore::getInstance().addNode("Chips");
-    GroceryStore::getInstance().addNode("Juice");
-    GroceryStore::getInstance().addNode("Yogurt");
-    GroceryStore::getInstance().addNode("Eggs");
-
-    GroceryStore::getInstance().addNode("Enter");
-    GroceryStore::getInstance().addNode("A1Left");
-    GroceryStore::getInstance().addNode("A1Right");
-    GroceryStore::getInstance().addNode("A2Left");
-    GroceryStore::getInstance().addNode("A2Right");
-    GroceryStore::getInstance().addNode("A3Left");
-    GroceryStore::getInstance().addNode("A3Right");
-    GroceryStore::getInstance().addNode("Exit");
+    std::ifstream node_file;
+    try
+    {
+        //open up the node setup file
+        node_file.open("storenodesetup.txt");
+        if(!node_file) {
+            throw std::ios_base::failure("Cannot open file!");       
+        }
+    }
+    catch(const std::ios_base::failure& e)
+    {
+        std::cerr << e.what() << '\n';
+        return;
+    }
+    std::string data = "";
+    //parse through the file until we reach the end
+    while(getline(node_file,data)) {
+        //Add nodes to the singleton grocery store with the given string from the file
+        GroceryStore::getInstance().addNode(data);
+        //Since the data is pushed back on data for each line, we reset data to make sure that each line is being read
+        //by itself
+        data = "";
+    }
+    //Close the file when we are done to avoid memory leaks
+    node_file.close();
+}
+void setupGroceryStoreEdges() {
     //Adding the various edges to the grocery store
+    std::ifstream edge_file;
+    try
+    {
+        //open up the edge setup file
+        edge_file.open("storeedgesetup.csv");
+        if(!edge_file) {
+            throw std::ios_base::failure("Cannot open file!");       
+        }
+    }
+    catch(const std::ios_base::failure& e)
+    {
+        std::cerr << e.what() << '\n';
+        return;
+    }
     Edge e;
-    e.name = "A1Left";
-    e.weight = 2;
-    GroceryStore::getInstance().addEdge("Enter",e);
-    e.name = "A1Right";
-    e.weight = 6;
-    GroceryStore::getInstance().addEdge("Enter",e);
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Cheese",e);
-    e.name = "Cheese";
-    e.weight = 5;
-    GroceryStore::getInstance().addEdge("Milk",e);
-    e.name = "Milk";
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("A1Left",e);
-    e.name = "A2Left";
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("A1Left",e);
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Chips",e);
-    e.name = "Cookies";
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("Chips",e);
-    e.weight = 2;
-    GroceryStore::getInstance().addEdge("Soda",e);
-    e.name = "A2Right";
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("Soda",e);
-    GroceryStore::getInstance().addEdge("A1Right",e);
-    GroceryStore::getInstance().addEdge("A3Right",e);
-    e.name = "Juice";
-    e.weight = 5;
-    GroceryStore::getInstance().addEdge("A3Right",e);
-    e.name = "Yogurt";
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Juice",e);
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("Eggs",e);
-    e.name = "A3Left";
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Eggs",e);
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("A2Left",e);
-    e.name = "Exit";
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("A3Left",e);
-    e.weight = 8;
-    GroceryStore::getInstance().addEdge("A3Right",e);
+    std::string edge_string = "";
+    //getting each line of the csv which holds one edge, represented by the two nodes connecting it and weight
+    while(getline(edge_file,edge_string)) {
+        //Using a stringstream to parse each line of the CSV
+        std::istringstream s(edge_string);
+        //Variables that will hold the edge statistics
+        std::string node1 = "";
+        std::string node2 = "";
+        std::string weight = "";
+        //Get each edge variable, separated by a comma delimeter
+        getline(s,node1, ',');
+        getline(s,weight,',');
+        getline(s,node2,',');
+        e.name = node1;
+        e.weight = std::stof(weight);
+        //create the edge in the singleton grocery store
+        GroceryStore::getInstance().addEdge(node2,e);
+    }
 }
 
 void GroceryStore::addItem(ShoppingList& list) {

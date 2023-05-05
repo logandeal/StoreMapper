@@ -14,9 +14,12 @@ void menuOptions(int option, ShoppingList& list);
 int main(int argv, char** argc) {
     //create list to be used
     ShoppingList list;
-    setupGroceryStore();
+    //Use the files to setup the grocery store with default nodes and edges
+    setupGroceryStoreNodes();
+    setupGroceryStoreEdges();
     std::cout << "Welcome to StoreMapper!" << std::endl;
     char option = '0';
+    //set the precision of floats to 2 to have prices look correct
     std::cout << std::fixed<< std::setprecision(2);
     //basic loop used to control program flow
     while(option != '6') {

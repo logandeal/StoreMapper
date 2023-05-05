@@ -1,0 +1,16 @@
+Soda
+Cheese
+Milk
+Cookies
+Chips
+Juice
+Yogurt
+Eggs
+Enter
+A1Left
+A1Right
+A2Left
+A2Right
+A3Left
+A3Right
+Exit
