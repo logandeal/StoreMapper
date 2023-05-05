@@ -9,7 +9,8 @@ class GroceryStoreTest : public ::testing::Test {
         ShoppingList* list;
         void SetUp() override {
             list = new ShoppingList();
-            setupGroceryStore();
+            setupGroceryStoreNodes();
+            setupGroceryStoreEdges();
         }
         void TearDown() override {
             delete list;
