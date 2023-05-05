@@ -174,15 +174,18 @@ void GroceryStoreMenuOptions(int option, ShoppingList& list){
                     else if(search2 == '3'){
                         GroceryStore::getInstance().addEdgeMenu();
                     }
+                    //deleting edge from grocery store
                     else if(search2 == '4'){
                         GroceryStore::getInstance().getEdge();
                     }
+                    //deleting node from grocery store
                     else if(search2 == '5'){
                         GroceryStore::getInstance().deleteNodeMenu();
                     }
                     search_option = '0';
                     std::cout << "Would you like to continue?\n1)Yes 2)No\n";
                     std::cin >> search_option;
+                    //invalid argument
                     if(!isdigit(search_option)) {
                         throw std::invalid_argument("Please enter a valid argument!");
                     }
