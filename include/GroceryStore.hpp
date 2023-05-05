@@ -5,7 +5,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
-
+#include "ShoppingList.hpp"
 
 struct Edge {
     float weight;
@@ -28,6 +28,8 @@ class GroceryStore {
         GroceryStore(GroceryStore &&) = delete; // move constructor
         GroceryStore& operator = (GroceryStore &&) = delete; // move assignment
         ~GroceryStore();
+        void addItem(ShoppingList& list);
+        void addAisle();
         void addEdge(std::string in, Edge newedge);
         void addNode(std::string newnode);
         void deleteNode(std::string out);

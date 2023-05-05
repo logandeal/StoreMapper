@@ -196,3 +196,31 @@ void setupGroceryStore() {
     e.weight = 8;
     GroceryStore::getInstance().addEdge("A3Right",e);
 }
+
+void GroceryStore::addItem(ShoppingList& list) {
+    float price;
+    bool coupon;
+    std::string item;
+    //getting name of item
+    std::cout << "What item would you like to add?\n";
+    std::cin >> item;
+    //getting price of item
+    std::cout << "What is the price of your item? (Must be a number)\n";
+    std::cin >> price;
+    //getting coupon bool
+    std::cout << "Is there a coupon for this item? 1) Yes 0) No)\n";
+    std::cin >> coupon;
+    ItemNode* node = new ItemNode(item,price,coupon);
+    //creating new itemnode
+    list.addToPossibleChoices(node);
+    //adding to list
+    GroceryStore::getInstance().addNode(item);
+    //adding to grocery store
+}
+
+void GroceryStore::addAisle(){
+    std::string name;
+    std::cout << "What is the name of your aisle?\n";
+    std::cin >> name;
+    GroceryStore::getInstance().addNode(name);
+}
