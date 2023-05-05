@@ -224,3 +224,44 @@ void GroceryStore::addAisle(){
     std::cin >> name;
     GroceryStore::getInstance().addNode(name);
 }
+
+void GroceryStore::addEdgeMenu(){
+    int node;
+    int node2;
+    std::cout << "Which node would you like connect first?\n";
+    int i = GroceryStore::getInstance().printNodes();
+    std::cin >> node;
+    if(node < 1 || node > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    std::string nodename = GroceryStore::getInstance().returnNodeName(node);
+    std::cout << "Which node would you like to connect to the first node?\n";
+    GroceryStore::getInstance().printNodes();
+    std::cin >> node2;
+    if(node2 < 1 || node2 > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    else if(node == node2){
+        throw std::invalid_argument("Cannot connect the node to itself!");
+    }
+    std::string nodename2 = GroceryStore::getInstance().returnNodeName(node2);
+    float weight;
+    std::cout << "How far apart are they (in steps)?\n";
+    std::cin >> weight;
+    Edge e;
+    e.name = nodename2;
+    e.weight = weight;
+    GroceryStore::getInstance().addEdge(nodename, e);
+}
+
+void GroceryStore::deleteNodeMenu(){
+    std::cout << "Which node would you like to delete?\n";
+    int node;
+    int i = GroceryStore::getInstance().printNodes();
+    std::cin >> node;
+    if(node < 1 || node > i){
+        throw std::invalid_argument("Please enter a valid argument!");
+    }
+    std::string nodename = GroceryStore::getInstance().returnNodeName(node);
+    GroceryStore::getInstance().deleteNode(nodename);
+}

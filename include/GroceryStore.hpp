@@ -40,6 +40,8 @@ class GroceryStore {
         void deleteMap();
         int printNodes();
         void getEdge();
+        void addEdgeMenu();
+        void deleteNodeMenu();
         std::string returnNodeName(int node);
     private:
         std::map<std::string, std::vector<Edge>> adjacencyList;
