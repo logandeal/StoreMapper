@@ -127,7 +127,7 @@ void GroceryStore::deleteMap(){
     adjacencyList.clear();
 }
 
-void setupGroceryStore() {
+void setupGroceryStoreNodes() {
     //we setup the grocery store map at this time by adding the same items to the grocery store that we created in the shopping list, as well as the edges that connect them
     std::ifstream node_file;
     try
@@ -154,6 +154,8 @@ void setupGroceryStore() {
     }
     //Close the file when we are done to avoid memory leaks
     node_file.close();
+}
+void setupGroceryStoreEdges() {
     //Adding the various edges to the grocery store
     std::ifstream edge_file;
     try
@@ -170,60 +172,22 @@ void setupGroceryStore() {
         return;
     }
     Edge e;
-    while(edge_file.peek()!= EOF) {
+    std::string edge_string = "";
+    //getting each line of the csv which holds one edge, represented by the two nodes connecting it and weight
+    while(getline(edge_file,edge_string)) {
+        //Using a stringstream to parse each line of the CSV
+        std::istringstream s(edge_string);
+        //Variables that will hold the edge statistics
         std::string node1 = "";
         std::string node2 = "";
-        std::string weight_string = "";
-        getline(edge_file,node1,',');
-        getline(edge_file,weight_string,',');
-        getline(edge_file,node2,',');
-        std::cout << "node1: "<< node1 << "\nweight: " << weight_string << "\nnode2: " << node2 << std::endl;
+        std::string weight = "";
+        //Get each edge variable, separated by a comma delimeter
+        getline(s,node1, ',');
+        getline(s,weight,',');
+        getline(s,node2,',');
+        e.name = node1;
+        e.weight = std::stof(weight);
+        //create the edge in the singleton grocery store
+        GroceryStore::getInstance().addEdge(node2,e);
     }
-    /*e.name = "A1Left";
-    e.weight = 2;
-    GroceryStore::getInstance().addEdge("Enter",e);
-    e.name = "A1Right";
-    e.weight = 6;
-    GroceryStore::getInstance().addEdge("Enter",e);
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Cheese",e);
-    e.name = "Cheese";
-    e.weight = 5;
-    GroceryStore::getInstance().addEdge("Milk",e);
-    e.name = "Milk";
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("A1Left",e);
-    e.name = "A2Left";
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("A1Left",e);
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Chips",e);
-    e.name = "Cookies";
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("Chips",e);
-    e.weight = 2;
-    GroceryStore::getInstance().addEdge("Soda",e);
-    e.name = "A2Right";
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("Soda",e);
-    GroceryStore::getInstance().addEdge("A1Right",e);
-    GroceryStore::getInstance().addEdge("A3Right",e);
-    e.name = "Juice";
-    e.weight = 5;
-    GroceryStore::getInstance().addEdge("A3Right",e);
-    e.name = "Yogurt";
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Juice",e);
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("Eggs",e);
-    e.name = "A3Left";
-    e.weight = 1;
-    GroceryStore::getInstance().addEdge("Eggs",e);
-    e.weight = 3;
-    GroceryStore::getInstance().addEdge("A2Left",e);
-    e.name = "Exit";
-    e.weight = 4;
-    GroceryStore::getInstance().addEdge("A3Left",e);
-    e.weight = 8;
-    GroceryStore::getInstance().addEdge("A3Right",e);*/
 }
