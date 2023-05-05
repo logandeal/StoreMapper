@@ -11,6 +11,7 @@
 struct Edge {
     float weight;
     std::string name;
+    std::vector<std::string> path;
 
     bool operator==(const Edge a) const { //overwriting == so that it can compare two edges together
         return (a.weight == weight && a.name == name);
