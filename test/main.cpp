@@ -1,29 +1,30 @@
 #include "inc/ShoppingListTest.hpp"
 #include "inc/GroceryStoreTest.hpp"
 
-
+//verify that the list is empty to start
 TEST_F(ShoppingListTest, IsEmptyInitially) {
     EXPECT_EQ(list->getList().size(),0);
 }
-
+//Testing our add item, checks by looking at the size of the lists
 TEST_F(ShoppingListTest, AddItem) {
     list->addItem();
     ASSERT_EQ(list->getList().size(),1);
     list->addItem();
     ASSERT_EQ(list->getList().size(),2);
 }
+//When removing an item, we have to first add one, remove it then look at the size and make sure it was reverted back to 0
 TEST_F(ShoppingListTest, RemoveItem) {
     list->addItem();
     list->removeItem();
     ASSERT_EQ(list->getList().size(),0);
 }
-
+//Adding a node to the grocery store singleton, checked by verifying the size increased properly
 TEST_F(GroceryStoreTest, AddNode){
     ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 16);
     GroceryStore::getInstance().addNode("Bubbles");
     ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 17);
 }
-
+//Similar to above test fixture but for adding an edge
 TEST_F(GroceryStoreTest, AddEdge){
     Edge e;
     e.name = "Cookies";
