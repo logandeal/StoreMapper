@@ -70,6 +70,7 @@ std::string GroceryStore::returnNodeName(int node){
 void GroceryStore::getEdge(){
     std::cout << "Which node would you like to delete an edge from?\n";
     int i = 1;
+    //looping through the whole list
     for(auto it = adjacencyList.cbegin(); it != adjacencyList.cend(); ++it){ //looping through the adjacency list
         std::cout << i << ") " << it->first << "\n";
         i++;
@@ -77,27 +78,33 @@ void GroceryStore::getEdge(){
     int check = 0;
     std::cin >> check;
     std::cin.clear();
+    //checking for valid argument
     if(check < 1 || check > i){
         throw std::invalid_argument("Please enter a valid argument!");
     }
+    //getting the node name
     std::string name = GroceryStore::getInstance().returnNodeName(check);
     int k = 1;
+    //looping through again for the other node
     for(auto it = adjacencyList.at(name).cbegin(); it != adjacencyList.at(name).cend(); ++it){
         std::cout << k << ") [" << it->name << ", " << it->weight << "]\n";
         k++;
     }
     int check2 = 0;
     std::cin >> check2;
+    //checking for valid argument
     if(check2 < 1 || check2 > k){
         throw std::invalid_argument("Please enter a valid argument!");
     }
+    //creating a new edge to store the one we want to delete
     Edge e;
     int counter = 1;
+    //looping through the first nodes connected edges
     for(auto it = adjacencyList.at(name).cbegin(); it != adjacencyList.at(name).cend(); ++it){ 
-        if(counter == check2){
+        if(counter == check2){ //checking for the given edge
             e.name = it->name;
             e.weight = it->weight;
-            GroceryStore::getInstance().deleteEdge(name, e);
+            GroceryStore::getInstance().deleteEdge(name, e); //deleting the edge
             break;
         }  
         counter++;
@@ -123,7 +130,8 @@ void GroceryStore::printShortestPath(std::vector<Edge> shortest){
 }
 
 
-void GroceryStore::deleteMap(){
+void GroceryStore::deleteMap(){ 
+    //deleting whole map for debug purposes
     adjacencyList.clear();
 }
 
