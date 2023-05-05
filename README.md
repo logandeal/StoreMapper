@@ -19,6 +19,8 @@
   
   - If the user chooses to find the shortest path through the grocery store, they will be given a choice of multiple different search algorithms that would search through the store. 
   
+  - The user can also opt to change the layout of the grocery store, however this could cause undefined behavior, so proceed with caution
+  
 # Functionality
   - Singleton Design Pattern for GroceryStore graph
 
