@@ -227,9 +227,10 @@ void GroceryStore::addItem(ShoppingList& list) {
 }
 
 void GroceryStore::addAisle(){
-    std::string name;
+    std::string name; //getting the name
     std::cout << "What is the name of your aisle?\n";
     std::cin >> name;
+    //storing that node
     GroceryStore::getInstance().addNode(name);
 }
 
@@ -237,39 +238,45 @@ void GroceryStore::addEdgeMenu(){
     int node;
     int node2;
     std::cout << "Which node would you like connect first?\n";
+    //getting first node
     int i = GroceryStore::getInstance().printNodes();
     std::cin >> node;
     if(node < 1 || node > i){
         throw std::invalid_argument("Please enter a valid argument!");
     }
+    //getting the name of that node
     std::string nodename = GroceryStore::getInstance().returnNodeName(node);
     std::cout << "Which node would you like to connect to the first node?\n";
     GroceryStore::getInstance().printNodes();
     std::cin >> node2;
+    //doing the same for node 2
     if(node2 < 1 || node2 > i){
         throw std::invalid_argument("Please enter a valid argument!");
     }
     else if(node == node2){
-        throw std::invalid_argument("Cannot connect the node to itself!");
+        throw std::invalid_argument("Cannot connect the node to itself!"); //we don't want self recurring loops
     }
+    //getting node2s name
     std::string nodename2 = GroceryStore::getInstance().returnNodeName(node2);
-    float weight;
+    float weight; //getting the weight of the edge
     std::cout << "How far apart are they (in steps)?\n";
     std::cin >> weight;
     Edge e;
     e.name = nodename2;
-    e.weight = weight;
-    GroceryStore::getInstance().addEdge(nodename, e);
+    e.weight = weight; //creating the edge
+    GroceryStore::getInstance().addEdge(nodename, e); //adding the edge
 }
 
 void GroceryStore::deleteNodeMenu(){
     std::cout << "Which node would you like to delete?\n";
-    int node;
+    int node; //getting the node
     int i = GroceryStore::getInstance().printNodes();
     std::cin >> node;
     if(node < 1 || node > i){
         throw std::invalid_argument("Please enter a valid argument!");
     }
+    //finding the node name
     std::string nodename = GroceryStore::getInstance().returnNodeName(node);
+    //deleting the node
     GroceryStore::getInstance().deleteNode(nodename);
 }
