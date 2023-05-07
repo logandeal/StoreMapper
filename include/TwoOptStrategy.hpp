@@ -2,6 +2,7 @@
 #define TWOOPT
 
 #include "SearchStrategy.hpp"
+#include <chrono>
 
 class TwoOptStrategy : public SearchStrategy {
 public:

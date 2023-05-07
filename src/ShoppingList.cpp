@@ -59,9 +59,9 @@ std::vector<ItemNode*> ShoppingList::getList() {
 //Function to add items to the final list
 void ShoppingList::addItem() {
     std::cout << "Please select one of the items below to add to your list:\n";
-    for(int i = 0; i < (int) this->possiblechoices.size();i++) {
+    for(int i = 1; i < (int) this->possiblechoices.size() + 1;i++) {
         //Iterate through and print all of the possible choices in the list
-        std::cout << i << ") " << possiblechoices[i]->getName() << " : $" << possiblechoices[i]->getPrice() << std::endl;
+        std::cout << i << ") " << possiblechoices[i-1]->getName() << " : $" << possiblechoices[i-1]->getPrice() << std::endl;
     }
     std::string input = "-1";
     try
@@ -72,7 +72,7 @@ void ShoppingList::addItem() {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
         //If the number is too big or too small from the numbers shown to the user then throw an error
-        if(std::stoi(input) < 0 || std::stoi(input) >= (int) this->possiblechoices.size()) {
+        if(std::stoi(input) < 0 || std::stoi(input) >= (int) this->possiblechoices.size() + 1) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
     }
@@ -89,8 +89,8 @@ void ShoppingList::addItem() {
         return;
     }
     //Add the selected option if it passed the error checking to the final list and remove it from the possible choices
-    this->list.push_back(this->possiblechoices[std::stoi(input)]);
-    this->possiblechoices.erase(possiblechoices.begin() + std::stoi(input));
+    this->list.push_back(this->possiblechoices[std::stoi(input)-1]);
+    this->possiblechoices.erase(possiblechoices.begin() + std::stoi(input) - 1);
 }
 //Function to remove items from the final list
 void ShoppingList::removeItem() {
@@ -99,9 +99,9 @@ void ShoppingList::removeItem() {
         return;
     }
     std::cout << "Please select one of the items below to be removed from your list:\n";
-    for(int i = 0; i < (int) this->list.size();i++) {
+    for(int i = 1; i < (int) this->list.size() + 1;i++) {
         //Iterate through each item that could be removed
-        std::cout << i << ") " << list[i]->getName() << " : $" << list[i]->getPrice() << std::endl;
+        std::cout << i << ") " << list[i-1]->getName() << " : $" << list[i-1]->getPrice() << std::endl;
     }
 
     std::string input = "-1";
@@ -112,7 +112,7 @@ void ShoppingList::removeItem() {
         if(hasCharacters(input)) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
-        if(std::stoi(input) < 0 || std::stoi(input) >= (int)this->list.size()) {
+        if(std::stoi(input) < 0 || std::stoi(input) >= (int)this->list.size() + 1) {
             throw std::invalid_argument("Invalid choice, please select again!");
         }
     }
@@ -127,14 +127,14 @@ void ShoppingList::removeItem() {
         return;
     }
     //If we pass the error checking, we readd the item that was removed to possiblechoices, and remove it from the final list
-    this->possiblechoices.push_back(this->list[std::stoi(input)]);
-    list.erase(list.begin() + std::stoi(input));
+    this->possiblechoices.push_back(this->list[std::stoi(input)-1]);
+    list.erase(list.begin() + std::stoi(input) - 1);
     
 }
 //Function to view the current final list
 void ShoppingList::viewCurrentList() {
     for(ItemNode* n : list) {
-        std::cout << n->getName() << "  : $" <<n->getPrice() << std::endl;
+        std::cout << n->getName() << ": $" << n->getPrice() << std::endl;
     }
 }
 //helper function for error checking to see if a given string has characters inside of it

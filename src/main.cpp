@@ -129,10 +129,19 @@ void strategyMenuOption(ShoppingList& list){
         if (cancel) {
             return;
         } else {
-            std::vector<Edge> path = k.strategy(list);
-            // print path when done
-            GroceryStore::getInstance().printShortestPath(path);
-            list.cleanupAfterSearch();
+            try {
+                // perform the search
+                std::vector<Edge> path = k.strategy(list);
+                // print path when done
+                GroceryStore::getInstance().printShortestPath(path);
+                list.cleanupAfterSearch();
+            } catch (const std::runtime_error& e) {
+                std::cerr << e.what() << '\n';
+                list.cleanupAfterSearch();
+            } catch (const std::bad_alloc& e) {
+                std::cerr << e.what() << '\n';
+                list.cleanupAfterSearch();
+            }
         }
     }
     catch(const std::invalid_argument &e) {
