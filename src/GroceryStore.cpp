@@ -120,16 +120,22 @@ std::map<std::string, std::vector<Edge>> GroceryStore::getMap(){
     return adjacencyList; //helper function that returns the adjacency list
 };
 
+std::map<std::string, std::vector<Edge>> GroceryStore::getTSPMap() {
+    if (TSPadjacencyList.size() == 0) updateTSPMap();
+    return TSPadjacencyList; //helper function that returns the TSP adjacency list
+}
+
 void GroceryStore::printShortestPath(std::vector<Edge> shortest){
-    std::cout << "Entrance --> "; //Will always start at entrance
+    //std::cout << "Entrance --> "; //Will always start at entrance
     for(auto it = shortest.cbegin(); it != shortest.cend(); ++it){ //looping through the shortest path vector
         for(auto i = it->path.cbegin(); i != it->path.cend(); ++i){
             std::cout << *i << "\n";
-            std::cout << *i << " -->";
+            std::cout << *i << " --> ";
         }
-        if(it != shortest.cend() - 1) //don't print out the next name if we are at the end
-            std::cout << it->name << " --> "; //print the next name
+        // if(it != shortest.cend() - 1) //don't print out the next name if we are at the end
+        //     std::cout << it->name << " --> "; //print the next name
     }
+    std::cout << "Exit\n";
 }
 
 
@@ -277,4 +283,183 @@ void GroceryStore::deleteNodeMenu(){
     std::string nodename = GroceryStore::getInstance().returnNodeName(node);
     //deleting the node
     GroceryStore::getInstance().deleteNode(nodename);
+}
+
+struct QueueNode {
+    std::string name;
+    int distance;
+    std::string prev;
+};
+
+bool compareQueueNodes(const QueueNode& lhs, const QueueNode& rhs) {
+    return lhs.distance > rhs.distance;
+}
+
+// FIGURE OUT WHY THE DISTANCES AREN'T CORRECT
+void GroceryStore::updateTSPMap() {
+    // If TSP adjacency list has already been initialized, then return it.
+    // if (TSPadjacencyList.size() > 0) return TSPadjacencyList;
+
+    // Create a map to store the shortest paths from each node to every other node.
+    std::map<std::string, std::vector<Edge>> TSP_map;
+
+    // Create a priority queue to store the nodes that have not yet been processed.
+    std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)> pq(&compareQueueNodes);
+    // and ones for checking which nodes are still in pq
+    std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)> pq_check(&compareQueueNodes);
+    std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)> pq_check2(&compareQueueNodes);
+
+    // SOURCES LOOP
+    for (auto it = adjacencyList.begin(); it != adjacencyList.end(); ++it) {
+        if (it->first != "A1Left" && it->first != "A1Right" && it->first != "A2Left" && it->first != "A2Right" && it->first != "A3Left" && it->first != "A3Right") {
+            std::cout << "SOURCE it->first: " << it->first << "\n";
+            // Reset pq for each iteration
+            pq = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
+
+            // Initialize distances and prev
+            std::map<std::string, int> distance;
+            std::map<std::string, std::string> prev;
+
+            // Iterate over all of the nodes in the graph to set up the priority queue.
+            for (auto it2 = adjacencyList.begin(); it2 != adjacencyList.end(); ++it2) {
+                std::cout << "TO it2->first: " << it2->first << "\n";
+                std::string node = it2->first;
+                // If the node is not one of the excluded nodes, then add it to the priority queue.
+                //if (node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
+                QueueNode qn;
+                qn.name = node;
+                qn.prev = "";
+                if (node == it->first) {
+                    qn.distance = 0;
+                    distance[node] = 0;
+                }
+                else {
+                    // SOMETHINGS WRONG
+                    qn.distance = INT_MAX;
+                    distance[node] = INT_MAX;
+                }
+                prev[node] = "";
+                pq.push(qn); // PROBLEM?
+            }
+            std::cout << "DONE WITH TO"<< "\n";
+
+            // While the priority queue is not empty, do the following:
+            while (!pq.empty()) {
+                // Pop the node with the lowest distance from the priority queue.
+                QueueNode current_node = pq.top();
+                pq.pop();
+                std::cout << "current node: " << current_node.name << "\n";
+
+                // If the node has already been processed, then skip it.
+                // if (TSP_map.find(current_node.name) != TSP_map.end()) continue;
+
+                // // Create a vector to store the shortest paths from the current node to all other nodes.
+                // std::vector<Edge> shortest_paths;
+
+                // Iterate over all of the edges in the graph.
+                // PROBLEM WITH PQS
+                for (Edge edge : adjacencyList[current_node.name]) {
+                    std::cout << "edge: " << edge.name << "\n";
+                    pq_check = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
+                    bool neighborStilInPQ = false;
+                    while (!pq.empty()) {
+                        if (pq.top().name == edge.name) {
+                            neighborStilInPQ = true;
+                            break;
+                        }
+                        pq_check.push(pq.top());
+                        pq.pop();
+                    }
+
+                    while (!pq_check.empty()) {
+                        pq.push(pq_check.top());
+                        pq_check.pop();
+                    }
+
+                    if (!neighborStilInPQ) continue;
+
+                    // PROBLEM, wrapping back around
+                    int alt_distance = current_node.distance + edge.weight;
+                    if (alt_distance < distance[edge.name]) {
+                        distance[edge.name] = alt_distance;
+                        prev[edge.name] = current_node.name;
+                        pq_check2 = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
+                        while (!pq.empty()) {
+                            if (pq.top().name == edge.name) {
+                                QueueNode match_node = pq.top();
+                                pq.pop();
+                                match_node.distance = alt_distance;
+                                match_node.prev = current_node.name;
+                                pq.push(match_node);
+                                break;
+                            }
+                            pq_check2.push(pq.top());
+                            pq.pop();
+                        }
+
+                        while (!pq_check2.empty()) {
+                            pq.push(pq_check2.top());
+                            pq_check2.pop();
+                        }
+                    }
+                }
+            }
+        
+            // insert into TSP_map
+            // PROBLEM WITH PATHS?
+            for (auto path_it = adjacencyList.begin(); path_it != adjacencyList.end(); ++path_it) {
+                std::string node = path_it->first;
+                if (node != it->first && node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
+                    int path_distance = distance[node];
+                    std::vector<std::string> path;
+                    while (prev[node].length() > 0) {
+                        node = prev[node];
+                        path.insert(path.begin(), node);
+                    }
+                    Edge path_edge;
+                    path_edge.weight = path_distance;
+                    path_edge.name = path_it->first;
+                    path_edge.path = path;
+                    TSP_map[it->first].push_back(path_edge);
+                }
+            }
+        }
+    }
+
+    // For each shortest path in TSP map node, get the paths both ways.
+    for (auto it = TSP_map.begin(); it != TSP_map.end(); ++it) {
+        std::string node = it->first;
+        for (Edge edge : it->second) {
+            std::vector<std::string> path = edge.path;
+            std::reverse(path.begin(), path.end());
+            Edge path_edge;
+            path_edge.weight = edge.weight;
+            path_edge.name = node;
+            path_edge.path = path;
+            TSP_map[edge.name].push_back(path_edge);
+        }
+    }
+
+    // Print all paths
+    for (auto it = TSP_map.begin(); it != TSP_map.end(); ++it) { 
+        std::cout << it->first << ":\n"; 
+        for (auto p : it->second) {
+            std::cout << "  [";
+            std::cout << p.name << ": ";
+            std::cout << p.weight << ", ";
+            std::cout << it->first << ", ";
+            for (std::string node : p.path) {
+                std::cout << node << ", ";
+            }
+            std::cout << p.name;
+            std::cout << "]\n";
+        }
+        std::cout << "\n";
+    }
+
+    // Store TSP map in grocery store.
+    TSPadjacencyList = TSP_map;
+
+    // Return the TSP map.
+    // return TSP_map;
 }

@@ -29,6 +29,8 @@
   - Exception Handling
 
   - Unit tests for all major aspects of code
+  
+  - Conversion from an original graph (with aisle nodes) to a Traveling Salesman Problem friendly graph (without aisle nodes) so that Traveling Salesman Problem algorithms can be leveraged
 
 # Dependencies
   - GTest
