@@ -12,13 +12,15 @@ std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
     const int n = shoppingList.getList().size();
 
     // get the adjacency list
-    std::map<std::string, std::vector<Edge>> adjList = GroceryStore::getInstance().getMap();
+    std::map<std::string, std::vector<Edge>> adjList = GroceryStore::getInstance().getTSPMap();
 
     // initialize the items array with the names of the items
-    std::vector<std::string> items(n); // names of items
-    for (int i = 0; i < n; i++) {
+    std::vector<std::string> items(n + 1); // names of items, include start and end
+    items[0] = shopList[0]->getName(); // first item
+    for (int i = 1; i < n; i++) {
         items[i] = shopList[i]->getName();
     }
+    items[n] = shopList[n-1]->getName(); // last item
 
     int ans = INT_MAX; // start total distance at max int
     do {
@@ -26,8 +28,7 @@ std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
         int curDist = 0;
         std::vector<Edge> currentPath;
         // loop through all the items in current permutation
-        for (int i = 1; i < n; i++) {
-            // compare the current and next item
+        for (int i = 1; i <= n; i++) {
             std::string name_u = items[i-1], name_v = items[i]; // compare two items 
             // find the edge weight between the current and next item
             int w = 0;
@@ -42,25 +43,20 @@ std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
             // add distance
             curDist += w;
         }
-        // std::string name_u = items[n-1], name_v = items[0];
-        // // find the edge weight between the last and first items
-        // int w = 0;
-        // for (Edge neighbor : adjList[name_u]) {
-        //     if (neighbor.name == name_v) {
-        //         w = neighbor.weight;
-        //         break;
-        //     }
-        // }
-        // curDist += w;
         if (curDist < ans) {
             path.clear();
             path.insert(path.begin(), currentPath.begin(), currentPath.end());
             ans = curDist;
         }
-        // ans = std::min(ans, curDist);
-    } while (next_permutation(items.begin(), items.end()));
+    } while (next_permutation(items.begin() + 1, items.end() - 1)); // exclude start and end items from permutation
+
+    // print each edge name in the path in order
+    for (Edge e : path) {
+        std::cout << e.name << " ";
+    }
 
     return path;
 };
+
 
 BruteForceStrategy::~BruteForceStrategy() {};

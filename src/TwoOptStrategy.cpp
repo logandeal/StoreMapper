@@ -14,7 +14,7 @@ std::vector<Edge> TwoOptStrategy::search(ShoppingList &shoppingList) {
     const int n = shoppingList.getList().size();
 
     // get the adjacency list
-    std::map<std::string, std::vector<Edge>> adjList = GroceryStore::getInstance().getMap();
+    std::map<std::string, std::vector<Edge>> adjList = GroceryStore::getInstance().getTSPMap();
 
     // initialize the items array with the names of the items
     std::vector<std::string> items(n); // names of items
