@@ -17,8 +17,6 @@ std::vector<Edge> TwoOptStrategy::search(ShoppingList& shoppingList) {
     NearestNeighborStrategy nearestNeighbor;
     std::vector<Edge> path = nearestNeighbor.search(shoppingList);
 
-    printPathInOrder(path);
-
     bool improvement = true;
     while (improvement) {
         improvement = false;
@@ -49,8 +47,6 @@ std::vector<Edge> TwoOptStrategy::search(ShoppingList& shoppingList) {
             }
         }
     }
-
-    printPathInOrder(path);
 
     return path;
 }

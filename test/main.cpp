@@ -56,18 +56,11 @@ TEST_F(GroceryStoreTest, DeleteEdge){
     ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 1);
 }
 
-TEST_F(GroceryStoreTest, DeleteEdge){
-    Edge e;
-    e.name = "Soda";
-    e.weight = 2;
-    
-    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 2);
-    GroceryStore::getInstance().deleteEdge("Cookies", e);
-    ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 1);
-}
-
 TEST_F(StrategyTest, BruteForce){
+    k.setStrategy(std::make_unique<BruteForceStrategy>());
+    std::vector<Edge> path = k.strategy(*list);
 
+    ASSERT_EQ(path.size(), 1);
 }
 
 int main(int argc, char** argv) {

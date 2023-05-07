@@ -1,12 +1,18 @@
-#ifndef SHOPPINGLISTTEST_GUARD
-#define SHOPPINGLISTTEST_GUARD
+#ifndef STRATEGYTEST_GUARD
+#define STRATEGYTEST_GUARD
 #include "gtest/gtest.h"
 #include "../../include/ShoppingList.hpp"
 #include "../../include/GroceryStore.hpp"
+#include "../../include/Context.hpp"
+#include "../../include/SearchStrategy.hpp"
+#include "../../include/BruteForceStrategy.hpp"
+#include "../../include/NearestNeighborStrategy.hpp"
+#include "../../include/TwoOptStrategy.hpp"
 
-class ShoppingListTest : public ::testing::Test {
+class StrategyTest : public ::testing::Test {
     protected:
         ShoppingList* list;
+        Context k;
         void SetUp() override {
             list = new ShoppingList();
             setupGroceryStoreNodes();
