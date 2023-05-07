@@ -126,14 +126,10 @@ std::map<std::string, std::vector<Edge>> GroceryStore::getTSPMap() {
 }
 
 void GroceryStore::printShortestPath(std::vector<Edge> shortest){
-    //std::cout << "Entrance --> "; //Will always start at entrance
     for(auto it = shortest.cbegin(); it != shortest.cend(); ++it){ //looping through the shortest path vector
         for(auto i = it->path.cbegin(); i != it->path.cend(); ++i){
-            //std::cout << *i << "\n";
             std::cout << *i << " --> ";
         }
-        // if(it != shortest.cend() - 1) //don't print out the next name if we are at the end
-        //     std::cout << it->name << " --> "; //print the next name
     }
     std::cout << "Exit\n";
 }
@@ -332,7 +328,6 @@ void getPathsBothWays(std::map<std::string, std::vector<Edge>> &map) {
 }
 
 // insert into TSP_map
-// PROBLEM WITH PATHS?
 void insertToTSPMap(std::map<std::string, std::vector<Edge>> &map, std::map<std::string, std::vector<Edge>> &adjList, std::string source_node, std::map<std::string, int> distance, std::map<std::string, std::string> prev) {
     for (auto path_it = adjList.begin(); path_it != adjList.end(); ++path_it) {
         std::string node = path_it->first;
@@ -355,10 +350,7 @@ void insertToTSPMap(std::map<std::string, std::vector<Edge>> &map, std::map<std:
 // Iterate over all of the nodes in the graph to set up the priority queue.
 void setupPriorityQueue(std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>& pq, std::map<std::string, std::vector<Edge>> &adjList, std::string source_node, std::map<std::string, int> &distance, std::map<std::string, std::string> &prev) {
     for (auto it2 = adjList.begin(); it2 != adjList.end(); ++it2) {
-        //std::cout << "TO it2->first: " << it2->first << "\n";
         std::string node = it2->first;
-        // If the node is not one of the excluded nodes, then add it to the priority queue.
-        //if (node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
         QueueNode qn;
         qn.name = node;
         qn.prev = "";
@@ -367,19 +359,15 @@ void setupPriorityQueue(std::priority_queue<QueueNode, std::vector<QueueNode>, d
             distance[node] = 0;
         }
         else {
-            // SOMETHINGS WRONG
             qn.distance = INT_MAX;
             distance[node] = INT_MAX;
         }
         prev[node] = "";
-        pq.push(qn); // PROBLEM?
+        pq.push(qn); 
     }
 }
 
-// FIGURE OUT WHY THE DISTANCES AREN'T CORRECT
 void GroceryStore::updateTSPMap() {
-    // If TSP adjacency list has already been initialized, then return it.
-    // if (TSPadjacencyList.size() > 0) return TSPadjacencyList;
 
     // Create a map to store the shortest paths from each node to every other node.
     std::map<std::string, std::vector<Edge>> TSP_map;
@@ -393,7 +381,6 @@ void GroceryStore::updateTSPMap() {
     // SOURCES LOOP
     for (auto it = adjacencyList.begin(); it != adjacencyList.end(); ++it) {
         if (it->first != "A1Left" && it->first != "A1Right" && it->first != "A2Left" && it->first != "A2Right" && it->first != "A3Left" && it->first != "A3Right") {
-            //std::cout << "SOURCE it->first: " << it->first << "\n";
             // Reset pq for each iteration
             pq = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
 
@@ -403,10 +390,7 @@ void GroceryStore::updateTSPMap() {
 
             // Iterate over all of the nodes in the graph to set up the priority queue.
             for (auto it2 = adjacencyList.begin(); it2 != adjacencyList.end(); ++it2) {
-                //std::cout << "TO it2->first: " << it2->first << "\n";
                 std::string node = it2->first;
-                // If the node is not one of the excluded nodes, then add it to the priority queue.
-                //if (node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
                 QueueNode qn;
                 qn.name = node;
                 qn.prev = "";
@@ -415,32 +399,22 @@ void GroceryStore::updateTSPMap() {
                     distance[node] = 0;
                 }
                 else {
-                    // SOMETHINGS WRONG
                     qn.distance = INT_MAX;
                     distance[node] = INT_MAX;
                 }
                 prev[node] = "";
-                pq.push(qn); // PROBLEM?
+                pq.push(qn);
             }
-            //std::cout << "DONE WITH TO"<< "\n";
 
             // While the priority queue is not empty, do the following:
             while (!pq.empty()) {
                 // Pop the node with the lowest distance from the priority queue.
                 QueueNode current_node = pq.top();
                 pq.pop();
-                //std::cout << "current node: " << current_node.name << "\n";
 
-                // If the node has already been processed, then skip it.
-                // if (TSP_map.find(current_node.name) != TSP_map.end()) continue;
-
-                // // Create a vector to store the shortest paths from the current node to all other nodes.
-                // std::vector<Edge> shortest_paths;
 
                 // Iterate over all of the edges in the graph.
-                // PROBLEM WITH PQS
                 for (Edge edge : adjacencyList[current_node.name]) {
-                    //std::cout << "edge: " << edge.name << "\n";
                     pq_check = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
                     bool neighborStilInPQ = false;
                     while (!pq.empty()) {
@@ -459,7 +433,6 @@ void GroceryStore::updateTSPMap() {
 
                     if (!neighborStilInPQ) continue;
 
-                    // PROBLEM, wrapping back around
                     int alt_distance = current_node.distance + edge.weight;
                     if (alt_distance < distance[edge.name]) {
                         distance[edge.name] = alt_distance;
@@ -487,7 +460,6 @@ void GroceryStore::updateTSPMap() {
             }
         
             // insert into TSP_map
-            // PROBLEM WITH PATHS?
             insertToTSPMap(TSP_map, adjacencyList, it->first, distance, prev);
         }
     }
