@@ -3,6 +3,7 @@
 
 #include "SearchStrategy.hpp"
 #include <climits>
+#include <set>
 class NearestNeighborStrategy : public SearchStrategy {
 public:
     std::vector<Edge> search(ShoppingList &shoppingList) override;

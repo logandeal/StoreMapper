@@ -7,11 +7,16 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <tuple>
+#include <queue>
+
 #include "ShoppingList.hpp"
+
 struct Edge {
     float weight;
     std::string name;
     std::vector<std::string> path;
+    std::string parent;
 
     bool operator==(const Edge a) const { //overwriting == so that it can compare two edges together
         return (a.weight == weight && a.name == name);
@@ -39,6 +44,8 @@ class GroceryStore {
         void printMap();
         void printShortestPath(std::vector<Edge> shortest);
         std::map<std::string, std::vector<Edge>> getMap();
+        std::map<std::string, std::vector<Edge>> getTSPMap();
+        void updateTSPMap();
         void deleteMap();
         int printNodes();
         void getEdge();
@@ -50,6 +57,7 @@ class GroceryStore {
         /*this adjacency list is a map, where it takes in the name of the node and the edge connected to it. It basically works
         as a directed graph, where each edge only points to the node it is connecting to. As our grocery store does not have one
         way aisles, we will need to basically add the edges twice (an edge for each direction)*/
+        std::map<std::string, std::vector<Edge>> TSPadjacencyList;
         GroceryStore(){}; 
 };
 //Thess functions will use the singleton grocery store to add the nodes/edges needed for the search
