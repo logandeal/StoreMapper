@@ -17,9 +17,10 @@ class StrategyTest : public ::testing::Test {
             list = new ShoppingList();
             setupGroceryStoreNodes();
             setupGroceryStoreEdges();
-            GroceryStore::getInstance().updateTSPMap();
+            list->setupForSearch();
         }
         void TearDown() override {
+            list->cleanupAfterSearch();
             delete list;
             GroceryStore::getInstance().deleteMap();
         }

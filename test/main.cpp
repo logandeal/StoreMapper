@@ -57,24 +57,69 @@ TEST_F(GroceryStoreTest, DeleteEdge){
 }
 
 TEST_F(StrategyTest, BruteForceEmpty){
+    GroceryStore::getInstance().updateTSPMap();
     k.setStrategy(std::make_unique<BruteForceStrategy>());
     std::vector<Edge> path = k.strategy(*list);
 
-    ASSERT_EQ(path.size(), 0);
+    ASSERT_EQ(path.size(), 1);
 }
 
 TEST_F(StrategyTest, NearestNeighborEmpty){
+    GroceryStore::getInstance().updateTSPMap();
     k.setStrategy(std::make_unique<NearestNeighborStrategy>());
     std::vector<Edge> path = k.strategy(*list);
 
-    ASSERT_EQ(path.size(), 0);
+    ASSERT_EQ(path.size(), 1);
 }
 
 TEST_F(StrategyTest, TwoOptEmpty){
+    GroceryStore::getInstance().updateTSPMap();
     k.setStrategy(std::make_unique<TwoOptStrategy>());
     std::vector<Edge> path = k.strategy(*list);
 
-    ASSERT_EQ(path.size(), 0);
+    ASSERT_EQ(path.size(), 1);
+}
+
+TEST_F(StrategyTest, BruteForceExample){
+    GroceryStore::getInstance().updateTSPMap();
+    std::cout << "CHOOSE 1) SODA FOR THIS UNIT TEST" << std::endl;
+    list->addItem();
+
+
+    k.setStrategy(std::make_unique<BruteForceStrategy>());
+    std::vector<Edge> path = k.strategy(*list);
+
+    std::cout << "Path size" << path.size() << std::endl;
+
+    ASSERT_EQ(path.size(), 2);
+}
+
+TEST_F(StrategyTest, NearestNeighborExample){
+    GroceryStore::getInstance().updateTSPMap();
+    std::cout << "CHOOSE 2) CHEESE FOR THIS UNIT TEST" << std::endl;
+    list->addItem();
+
+
+    k.setStrategy(std::make_unique<NearestNeighborStrategy>());
+    std::vector<Edge> path = k.strategy(*list);
+
+    std::cout << "Path size" << path.size() << std::endl;
+
+    ASSERT_EQ(path.size(), 2);
+}
+
+TEST_F(StrategyTest, TwoOptExample){
+    GroceryStore::getInstance().updateTSPMap();
+    std::cout << "CHOOSE 3) MILK FOR THIS UNIT TEST" << std::endl;
+    list->addItem();
+
+
+    k.setStrategy(std::make_unique<TwoOptStrategy>());
+    std::vector<Edge> path = k.strategy(*list);
+
+    std::cout << "Path size" << path.size() << std::endl;
+
+    ASSERT_EQ(path.size(), 2);
 }
 
 int main(int argc, char** argv) {
