@@ -9,7 +9,7 @@
 #include <sstream>
 #include <tuple>
 #include <queue>
-
+#include <climits>
 #include "ShoppingList.hpp"
 
 struct Edge {
