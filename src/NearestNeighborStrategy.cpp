@@ -18,9 +18,12 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
     // get shopping list
     std::vector<ItemNode*> shopList = shoppingList.getList();
 
-
     // path to return
     std::vector<Edge> path;
+
+    // number of items
+    const int n = shoppingList.getList().size();
+    if (n == 0) return path;
 
     // set termination variable
     bool done = false;

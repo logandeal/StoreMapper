@@ -13,9 +13,16 @@ int getWeight(const std::vector<Edge>& path) {
 }
 
 std::vector<Edge> TwoOptStrategy::search(ShoppingList& shoppingList) {
+    // create path
+    std::vector<Edge> path;
+
+    // number of items
+    const int n = shoppingList.getList().size();
+    if (n == 0) return path;
+
     // run nearest neighbor algorithm
     NearestNeighborStrategy nearestNeighbor;
-    std::vector<Edge> path = nearestNeighbor.search(shoppingList);
+    path = nearestNeighbor.search(shoppingList);
 
     bool improvement = true;
     while (improvement) {
