@@ -152,6 +152,12 @@ void ShoppingList::addToPossibleChoices(ItemNode* item){
     possiblechoices.push_back(item);
 }
 void ShoppingList::cleanupAfterSearch() {
+    //get last element of list which is the exit node and delete it/pop it from list
+    ItemNode* item = list.back();
+    delete item;
     list.pop_back();
+    //get first element of list which is the enter and delete it/erase from list
+    item = list.front();
+    delete item;
     list.erase(list.begin());
 }
