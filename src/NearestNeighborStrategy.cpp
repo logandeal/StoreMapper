@@ -11,13 +11,6 @@ int NearestNeighborStrategy::getIndex(const std::vector<ItemNode*>& shopList, co
     return -1;
 }
 
-// // print shopping list
-// std::cout << "Shopping List: ";
-// for (ItemNode* item : shopList) {
-//     std::cout << item->getName() << " ";
-// }
-// std::cout << std::endl;
-
 std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
     // get the adjacency list
     std::map<std::string, std::vector<Edge>> adjList = GroceryStore::getInstance().getTSPMap();
@@ -25,6 +18,7 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
     // get shopping list
     std::vector<ItemNode*> shopList = shoppingList.getList();
 
+    // // print shopping list
     // std::cout << "Shopping List: ";
     // for (ItemNode* item : shopList) {
     //     std::cout << item->getName() << " ";
@@ -65,11 +59,6 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
                 break;
             }
         }
-
-        // print each edge name in the path in order
-        // for (Edge e : path) {
-        //     std::cout << e.name << " ";
-        // }
         
         // delete temp_current from shopping list
         int shopListi = 0;
@@ -80,11 +69,6 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
         //std::cout << "shopListi: " << shopListi << std::endl;
         shopList.erase(shopList.begin() + shopListi);
     }
-
-    // print each edge name in the path in order
-    // for (Edge e : path) {
-    //     std::cout << e.name << " ";
-    // }
 
     return path;
 }

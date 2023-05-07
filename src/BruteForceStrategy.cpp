@@ -50,11 +50,6 @@ std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
         }
     } while (next_permutation(items.begin() + 1, items.end() - 1)); // exclude start and end items from permutation
 
-    // print each edge name in the path in order
-    // for (Edge e : path) {
-    //     std::cout << e.name << " ";
-    // }
-
     return path;
 };
 
