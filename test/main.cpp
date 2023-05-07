@@ -56,11 +56,25 @@ TEST_F(GroceryStoreTest, DeleteEdge){
     ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 1);
 }
 
-TEST_F(StrategyTest, BruteForce){
+TEST_F(StrategyTest, BruteForceEmpty){
     k.setStrategy(std::make_unique<BruteForceStrategy>());
     std::vector<Edge> path = k.strategy(*list);
 
-    ASSERT_EQ(path.size(), 1);
+    ASSERT_EQ(path.size(), 0);
+}
+
+TEST_F(StrategyTest, NearestNeighborEmpty){
+    k.setStrategy(std::make_unique<NearestNeighborStrategy>());
+    std::vector<Edge> path = k.strategy(*list);
+
+    ASSERT_EQ(path.size(), 0);
+}
+
+TEST_F(StrategyTest, TwoOptEmpty){
+    k.setStrategy(std::make_unique<TwoOptStrategy>());
+    std::vector<Edge> path = k.strategy(*list);
+
+    ASSERT_EQ(path.size(), 0);
 }
 
 int main(int argc, char** argv) {
