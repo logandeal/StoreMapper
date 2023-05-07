@@ -129,7 +129,7 @@ void GroceryStore::printShortestPath(std::vector<Edge> shortest){
     //std::cout << "Entrance --> "; //Will always start at entrance
     for(auto it = shortest.cbegin(); it != shortest.cend(); ++it){ //looping through the shortest path vector
         for(auto i = it->path.cbegin(); i != it->path.cend(); ++i){
-            std::cout << *i << "\n";
+            //std::cout << *i << "\n";
             std::cout << *i << " --> ";
         }
         // if(it != shortest.cend() - 1) //don't print out the next name if we are at the end
@@ -312,7 +312,7 @@ void GroceryStore::updateTSPMap() {
     // SOURCES LOOP
     for (auto it = adjacencyList.begin(); it != adjacencyList.end(); ++it) {
         if (it->first != "A1Left" && it->first != "A1Right" && it->first != "A2Left" && it->first != "A2Right" && it->first != "A3Left" && it->first != "A3Right") {
-            std::cout << "SOURCE it->first: " << it->first << "\n";
+            //std::cout << "SOURCE it->first: " << it->first << "\n";
             // Reset pq for each iteration
             pq = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
 
@@ -322,7 +322,7 @@ void GroceryStore::updateTSPMap() {
 
             // Iterate over all of the nodes in the graph to set up the priority queue.
             for (auto it2 = adjacencyList.begin(); it2 != adjacencyList.end(); ++it2) {
-                std::cout << "TO it2->first: " << it2->first << "\n";
+                //std::cout << "TO it2->first: " << it2->first << "\n";
                 std::string node = it2->first;
                 // If the node is not one of the excluded nodes, then add it to the priority queue.
                 //if (node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
@@ -341,14 +341,14 @@ void GroceryStore::updateTSPMap() {
                 prev[node] = "";
                 pq.push(qn); // PROBLEM?
             }
-            std::cout << "DONE WITH TO"<< "\n";
+            //std::cout << "DONE WITH TO"<< "\n";
 
             // While the priority queue is not empty, do the following:
             while (!pq.empty()) {
                 // Pop the node with the lowest distance from the priority queue.
                 QueueNode current_node = pq.top();
                 pq.pop();
-                std::cout << "current node: " << current_node.name << "\n";
+                //std::cout << "current node: " << current_node.name << "\n";
 
                 // If the node has already been processed, then skip it.
                 // if (TSP_map.find(current_node.name) != TSP_map.end()) continue;
@@ -359,7 +359,7 @@ void GroceryStore::updateTSPMap() {
                 // Iterate over all of the edges in the graph.
                 // PROBLEM WITH PQS
                 for (Edge edge : adjacencyList[current_node.name]) {
-                    std::cout << "edge: " << edge.name << "\n";
+                    //std::cout << "edge: " << edge.name << "\n";
                     pq_check = std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>(&compareQueueNodes);
                     bool neighborStilInPQ = false;
                     while (!pq.empty()) {
@@ -441,21 +441,21 @@ void GroceryStore::updateTSPMap() {
     }
 
     // Print all paths
-    for (auto it = TSP_map.begin(); it != TSP_map.end(); ++it) { 
-        std::cout << it->first << ":\n"; 
-        for (auto p : it->second) {
-            std::cout << "  [";
-            std::cout << p.name << ": ";
-            std::cout << p.weight << ", ";
-            std::cout << it->first << ", ";
-            for (std::string node : p.path) {
-                std::cout << node << ", ";
-            }
-            std::cout << p.name;
-            std::cout << "]\n";
-        }
-        std::cout << "\n";
-    }
+    // for (auto it = TSP_map.begin(); it != TSP_map.end(); ++it) { 
+    //     std::cout << it->first << ":\n"; 
+    //     for (auto p : it->second) {
+    //         std::cout << "  [";
+    //         std::cout << p.name << ": ";
+    //         std::cout << p.weight << ", ";
+    //         std::cout << it->first << ", ";
+    //         for (std::string node : p.path) {
+    //             std::cout << node << ", ";
+    //         }
+    //         std::cout << p.name;
+    //         std::cout << "]\n";
+    //     }
+    //     std::cout << "\n";
+    // }
 
     // Store TSP map in grocery store.
     TSPadjacencyList = TSP_map;

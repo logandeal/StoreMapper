@@ -25,11 +25,11 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
     // get shopping list
     std::vector<ItemNode*> shopList = shoppingList.getList();
 
-    std::cout << "Shopping List: ";
-    for (ItemNode* item : shopList) {
-        std::cout << item->getName() << " ";
-    }
-    std::cout << std::endl;
+    // std::cout << "Shopping List: ";
+    // for (ItemNode* item : shopList) {
+    //     std::cout << item->getName() << " ";
+    // }
+    // std::cout << std::endl;
 
     // path to return
     std::vector<Edge> path;
@@ -67,9 +67,9 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
         }
 
         // print each edge name in the path in order
-        for (Edge e : path) {
-            std::cout << e.name << " ";
-        }
+        // for (Edge e : path) {
+        //     std::cout << e.name << " ";
+        // }
         
         // delete temp_current from shopping list
         int shopListi = 0;
@@ -77,14 +77,14 @@ std::vector<Edge> NearestNeighborStrategy::search(ShoppingList& shoppingList) {
             if (item->getName() == temp_current) break;
             shopListi++;
         }
-        std::cout << "shopListi: " << shopListi << std::endl;
+        //std::cout << "shopListi: " << shopListi << std::endl;
         shopList.erase(shopList.begin() + shopListi);
     }
 
     // print each edge name in the path in order
-    for (Edge e : path) {
-        std::cout << e.name << " ";
-    }
+    // for (Edge e : path) {
+    //     std::cout << e.name << " ";
+    // }
 
     return path;
 }
