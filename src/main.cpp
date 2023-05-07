@@ -112,9 +112,9 @@ void strategyMenuOption(ShoppingList& list){
                 list.setupForSearch();
                 //Since the various strategies are better for certain sizes, the size will decide which strategy to pick
                 std::vector<ItemNode*> shopList = list.getList();
-                if (shopList.size() < 10) {
+                if (shopList.size() < 5) {
                     k.setStrategy(std::make_unique<BruteForceStrategy>());
-                } else if (shopList.size() < 20) {
+                } else if (shopList.size() < 10) {
                     k.setStrategy(std::make_unique<NearestNeighborStrategy>());
                 } else {
                     k.setStrategy(std::make_unique<TwoOptStrategy>());

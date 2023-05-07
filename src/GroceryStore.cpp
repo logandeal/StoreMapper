@@ -352,6 +352,30 @@ void insertToTSPMap(std::map<std::string, std::vector<Edge>> &map, std::map<std:
     }
 }
 
+// Iterate over all of the nodes in the graph to set up the priority queue.
+void setupPriorityQueue(std::priority_queue<QueueNode, std::vector<QueueNode>, decltype(&compareQueueNodes)>& pq, std::map<std::string, std::vector<Edge>> &adjList, std::string source_node, std::map<std::string, int> &distance, std::map<std::string, std::string> &prev) {
+    for (auto it2 = adjList.begin(); it2 != adjList.end(); ++it2) {
+        //std::cout << "TO it2->first: " << it2->first << "\n";
+        std::string node = it2->first;
+        // If the node is not one of the excluded nodes, then add it to the priority queue.
+        //if (node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
+        QueueNode qn;
+        qn.name = node;
+        qn.prev = "";
+        if (node == source_node) {
+            qn.distance = 0;
+            distance[node] = 0;
+        }
+        else {
+            // SOMETHINGS WRONG
+            qn.distance = INT_MAX;
+            distance[node] = INT_MAX;
+        }
+        prev[node] = "";
+        pq.push(qn); // PROBLEM?
+    }
+}
+
 // FIGURE OUT WHY THE DISTANCES AREN'T CORRECT
 void GroceryStore::updateTSPMap() {
     // If TSP adjacency list has already been initialized, then return it.
