@@ -34,7 +34,7 @@ TEST_F(GroceryStoreTest, AddEdge){
     GroceryStore::getInstance().addEdge("Yogurt", e);
     ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 3);
 }
-
+//Testing various delete nodes on the grocery store
 TEST_F(GroceryStoreTest, DeleteNode){
     ASSERT_EQ(GroceryStore::getInstance().getMap().size(), 16);
     GroceryStore::getInstance().deleteNode("Milk");
@@ -55,7 +55,7 @@ TEST_F(GroceryStoreTest, DeleteEdge){
     GroceryStore::getInstance().deleteEdge("Cookies", e);
     ASSERT_EQ(GroceryStore::getInstance().getMap().at("Cookies").size(), 1);
 }
-
+//start of various strategy tests, testing to verify an empty list will be done properly
 TEST_F(StrategyTest, BruteForceEmpty){
     GroceryStore::getInstance().updateTSPMap();
     k.setStrategy(std::make_unique<BruteForceStrategy>());
@@ -79,7 +79,7 @@ TEST_F(StrategyTest, TwoOptEmpty){
 
     ASSERT_EQ(path.size(), 1);
 }
-
+//testing each strategy to verify they work properly
 TEST_F(StrategyTest, BruteForceExample){
     GroceryStore::getInstance().updateTSPMap();
     std::cout << "CHOOSE 1) SODA FOR THIS UNIT TEST" << std::endl;
