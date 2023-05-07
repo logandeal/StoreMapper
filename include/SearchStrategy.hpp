@@ -17,6 +17,7 @@ class SearchStrategy {
 public:
     virtual std::vector<Edge> search(ShoppingList &shoppingList) = 0;   
     virtual ~SearchStrategy() {};
+    void printPathInOrder(const std::vector<Edge> path);
 };
 
 #endif

@@ -291,8 +291,65 @@ struct QueueNode {
     std::string prev;
 };
 
+// Comparator for priority queue used in updateTSPMap() for Dijkstra's algorithm
 bool compareQueueNodes(const QueueNode& lhs, const QueueNode& rhs) {
     return lhs.distance > rhs.distance;
+}
+
+// Print all paths
+void printAllPaths(const std::map<std::string, std::vector<Edge>> map) {
+    for (auto it = map.begin(); it != map.end(); ++it) { 
+        std::cout << it->first << ":\n"; 
+        for (auto p : it->second) {
+            std::cout << "  [";
+            std::cout << p.name << ": ";
+            std::cout << p.weight << ", ";
+            std::cout << it->first << ", ";
+            for (std::string node : p.path) {
+                std::cout << node << ", ";
+            }
+            std::cout << p.name;
+            std::cout << "]\n";
+        }
+        std::cout << "\n";
+    }
+}
+
+// For each shortest path in TSP map node, get the paths both ways.
+void getPathsBothWays(std::map<std::string, std::vector<Edge>> &map) {
+    for (auto it = map.begin(); it != map.end(); ++it) {
+        std::string node = it->first;
+        for (Edge edge : it->second) {
+            std::vector<std::string> path = edge.path;
+            std::reverse(path.begin(), path.end());
+            Edge path_edge;
+            path_edge.weight = edge.weight;
+            path_edge.name = node;
+            path_edge.path = path;
+            map[edge.name].push_back(path_edge);
+        }
+    }
+}
+
+// insert into TSP_map
+// PROBLEM WITH PATHS?
+void insertToTSPMap(std::map<std::string, std::vector<Edge>> &map, std::map<std::string, std::vector<Edge>> &adjList, std::string source_node, std::map<std::string, int> distance, std::map<std::string, std::string> prev) {
+    for (auto path_it = adjList.begin(); path_it != adjList.end(); ++path_it) {
+        std::string node = path_it->first;
+        if (node != source_node && node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
+            int path_distance = distance[node];
+            std::vector<std::string> path;
+            while (prev[node].length() > 0) {
+                node = prev[node];
+                path.insert(path.begin(), node);
+            }
+            Edge path_edge;
+            path_edge.weight = path_distance;
+            path_edge.name = path_it->first;
+            path_edge.path = path;
+            map[source_node].push_back(path_edge);
+        }
+    }
 }
 
 // FIGURE OUT WHY THE DISTANCES AREN'T CORRECT
@@ -407,55 +464,12 @@ void GroceryStore::updateTSPMap() {
         
             // insert into TSP_map
             // PROBLEM WITH PATHS?
-            for (auto path_it = adjacencyList.begin(); path_it != adjacencyList.end(); ++path_it) {
-                std::string node = path_it->first;
-                if (node != it->first && node != "A1Left" && node != "A1Right" && node != "A2Left" && node != "A2Right" && node != "A3Left" && node != "A3Right") {
-                    int path_distance = distance[node];
-                    std::vector<std::string> path;
-                    while (prev[node].length() > 0) {
-                        node = prev[node];
-                        path.insert(path.begin(), node);
-                    }
-                    Edge path_edge;
-                    path_edge.weight = path_distance;
-                    path_edge.name = path_it->first;
-                    path_edge.path = path;
-                    TSP_map[it->first].push_back(path_edge);
-                }
-            }
+            insertToTSPMap(TSP_map, adjacencyList, it->first, distance, prev);
         }
     }
 
     // For each shortest path in TSP map node, get the paths both ways.
-    for (auto it = TSP_map.begin(); it != TSP_map.end(); ++it) {
-        std::string node = it->first;
-        for (Edge edge : it->second) {
-            std::vector<std::string> path = edge.path;
-            std::reverse(path.begin(), path.end());
-            Edge path_edge;
-            path_edge.weight = edge.weight;
-            path_edge.name = node;
-            path_edge.path = path;
-            TSP_map[edge.name].push_back(path_edge);
-        }
-    }
-
-    // Print all paths
-    // for (auto it = TSP_map.begin(); it != TSP_map.end(); ++it) { 
-    //     std::cout << it->first << ":\n"; 
-    //     for (auto p : it->second) {
-    //         std::cout << "  [";
-    //         std::cout << p.name << ": ";
-    //         std::cout << p.weight << ", ";
-    //         std::cout << it->first << ", ";
-    //         for (std::string node : p.path) {
-    //             std::cout << node << ", ";
-    //         }
-    //         std::cout << p.name;
-    //         std::cout << "]\n";
-    //     }
-    //     std::cout << "\n";
-    // }
+    getPathsBothWays(TSP_map);
 
     // Store TSP map in grocery store.
     TSPadjacencyList = TSP_map;
