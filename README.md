@@ -21,6 +21,12 @@
   
   - The user can also opt to change the layout of the grocery store, however this could cause undefined behavior, so proceed with caution
   
+  - Below is the default layout of the grocery store in a graph-type structure
+  
+  
+  ![Graph Layout](IMG_2504.jpg)
+
+  
 # Functionality
   - Singleton Design Pattern for GroceryStore graph
 
