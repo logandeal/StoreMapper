@@ -30,6 +30,7 @@ ShoppingList::ShoppingList() {
         possiblechoices.push_back(new ItemNode(item,std::stof(price),toBool(coupon)));
     }
 }
+
 //Helper function to determine if a string is true or false to convert it to boolean
 bool toBool(std::string s) {
     if(s == "false") {
@@ -37,6 +38,7 @@ bool toBool(std::string s) {
     }
     return true;
 }
+
 ShoppingList::~ShoppingList() {
     for(ItemNode* n : this->possiblechoices) {
         //iterating through and deleting all of the created nodes
@@ -46,16 +48,19 @@ ShoppingList::~ShoppingList() {
         delete node;
     }
 }
+
 void ShoppingList::setupForSearch() {
     //Add an exit node to our list to be included in the search
     list.push_back(new ItemNode("Exit",-1,false));
     //Adding the enter node to our final list which will be searched upon
     list.insert(list.begin(), new ItemNode("Enter",-1,false));
 }
+
 //Getter for the final list
 std::vector<ItemNode*> ShoppingList::getList() {
     return this->list;
 }
+
 //Function to add items to the final list
 void ShoppingList::addItem() {
     std::cout << "Please select one of the items below to add to your list:\n";
@@ -92,6 +97,7 @@ void ShoppingList::addItem() {
     this->list.push_back(this->possiblechoices[std::stoi(input)-1]);
     this->possiblechoices.erase(possiblechoices.begin() + std::stoi(input) - 1);
 }
+
 //Function to remove items from the final list
 void ShoppingList::removeItem() {
     //If the list is empty, then nothing can be done so return
@@ -131,12 +137,14 @@ void ShoppingList::removeItem() {
     list.erase(list.begin() + std::stoi(input) - 1);
     
 }
+
 //Function to view the current final list
 void ShoppingList::viewCurrentList() {
     for(ItemNode* n : list) {
         std::cout << n->getName() << ": $" << n->getPrice() << std::endl;
     }
 }
+
 //helper function for error checking to see if a given string has characters inside of it
 bool hasCharacters(std::string s) {
     for(auto &character : s) {
@@ -151,6 +159,7 @@ bool hasCharacters(std::string s) {
 void ShoppingList::addToPossibleChoices(ItemNode* item){
     possiblechoices.push_back(item);
 }
+
 void ShoppingList::cleanupAfterSearch() {
     //get last element of list which is the exit node and delete it/pop it from list
     ItemNode* item = list.back();
