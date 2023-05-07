@@ -10,7 +10,6 @@ std::vector<Edge> BruteForceStrategy::search(ShoppingList &shoppingList) {
 
     // number of items
     const int n = shoppingList.getList().size();
-
     if (n == 0) return path;
 
     // get the adjacency list
