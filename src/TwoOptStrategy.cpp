@@ -1,4 +1,4 @@
-// Good for small - medium n
+// Good for medium n
 
 #include "../include/TwoOptStrategy.hpp"
 #include "../include/NearestNeighborStrategy.hpp"
