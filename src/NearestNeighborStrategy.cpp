@@ -1,4 +1,4 @@
-// Good for medium n
+// Good for small to medium n
 
 #include "../include/NearestNeighborStrategy.hpp"
 // helper function to get the index of an item in the shopping list
