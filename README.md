@@ -1,6 +1,6 @@
 # StoreMapper
 
-## ECE3220 Semester Project
+## Electrical and Computer Engineering: Software Design in C and C++ Project
 - Logan Deal
 - Ryan Milewski   
 - Edison Briney
